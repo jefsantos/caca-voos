@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caça-Voos · GRU → Itália</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  :root {
+    --bg: #0D1015;
+    --panel: #151A22;
+    --panel-2: #1B212B;
+    --line: #252D39;
+    --board: #FFB627;          /* âmbar de painel de embarque */
+    --text: #E9EDF2;
+    --muted: #8A94A3;
+    --drop: #3ECF8E;
+    --rise: #E5484D;
+    --it-green: #159957;
+    --it-red: #CE2B37;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Archivo', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+
+  /* Faixa tricolore — aceno à Itália, também é o divisor do site */
+  .tricolore { height: 4px; display: flex; }
+  .tricolore span { flex: 1; }
+  .tricolore span:nth-child(1) { background: var(--it-green); }
+  .tricolore span:nth-child(2) { background: #F1F2F1; }
+  .tricolore span:nth-child(3) { background: var(--it-red); }
+
+  header { padding: 28px 0 20px; border-bottom: 1px solid var(--line); }
+  .route-board {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(26px, 7vw, 44px);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--board);
+    text-shadow: 0 0 24px rgba(255,182,39,0.25);
+  }
+  .route-board .arrow { color: var(--muted); padding: 0 6px; }
+  .sub {
+    margin-top: 6px; font-size: 13px; color: var(--muted);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .sub .dot::before { content: "·"; margin-right: 14px; color: var(--line); }
+
+  /* Cartão de embarque — melhor oferta */
+  .boarding {
+    margin-top: 24px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .boarding-head {
+    padding: 10px 18px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px dashed var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .boarding-head .tag {
+    color: var(--bg); background: var(--board);
+    padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 0.1em;
+  }
+  .boarding-body {
+    padding: 20px 18px;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  }
+  .boarding .cities { font-weight: 800; font-size: clamp(20px, 5vw, 28px); }
+  .boarding .dates { margin-top: 6px; font-size: 14px; color: var(--muted); }
+  .boarding .meta { margin-top: 10px; font-size: 12px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+  .price-big {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(24px, 6vw, 36px); font-weight: 600;
+    color: var(--board); text-align: right; white-space: nowrap;
+  }
+  .price-big small { display: block; font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+  .under-ceiling { color: var(--drop); }
+
+  h2 {
+    margin: 36px 0 12px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted);
+  }
+
+  /* Linhas do painel de partidas */
+  .board-rows { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .board-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px; align-items: center;
+    padding: 13px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .board-row:nth-child(even) { background: var(--panel-2); }
+  .board-row:last-child { border-bottom: none; }
+  .board-row .dest {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    color: var(--board); font-size: 15px; letter-spacing: 0.08em;
+  }
+  .board-row .info { min-width: 0; }
+  .board-row .when { font-weight: 500; }
+  .board-row .detail { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .board-row .price {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 15px;
+    text-align: right; white-space: nowrap;
+  }
+  .board-row .price.ok { color: var(--drop); }
+
+  /* Gráfico */
+  .chart-card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
+  .legend .key { display: inline-block; width: 18px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+
+  .empty {
+    margin-top: 40px; padding: 40px 20px; text-align: center;
+    border: 1px dashed var(--line); border-radius: 12px; color: var(--muted);
+  }
+  .empty .mono { color: var(--board); }
+
+  footer { margin-top: 44px; font-size: 12px; color: var(--muted); text-align: center; }
+
+  @media (max-width: 520px) {
+    .boarding-body { grid-template-columns: 1fr; }
+    .price-big { text-align: left; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .route-board { animation: glow 2.4s ease-in-out 1; }
+    @keyframes glow { from { opacity: 0; } to { opacity: 1; } }
+  }
+</style>
+</head>
+<body>
+<div class="tricolore"><span></span><span></span><span></span></div>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useMemo } = React;
+
+const CITY = { FCO: "Roma", MXP: "Milão", VCE: "Veneza", LIN: "Milão", CIA: "Roma", BLQ: "Bolonha", NAP: "Nápoles" };
+const ROUTE_COLORS = ["#FFB627", "#3ECF8E", "#6CA0F6", "#E57BD1", "#F2724B", "#9B8CFF"];
+
+const brl = (v, cur) =>
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: cur || "BRL" }).format(v);
+
+const dm = iso => {
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}`;
+};
+
+// "14h30" já vem formatado do agente; mantém compatibilidade com "PT12H35M"
+const dur = iso => {
+  if (!iso || iso === "?" ) return "—";
+  if (!iso.startsWith("PT")) return iso;
+  const h = (iso.match(/(\d+)H/) || [])[1] || "0";
+  const m = (iso.match(/(\d+)M/) || [])[1] || "00";
+  return `${h}h${String(m).padStart(2, "0")}`;
+};
+
+const stopsLabel = n => (n === 0 ? "direto" : n === 1 ? "1 escala" : `${n} escalas`);
+
+function PriceChart({ routes }) {
+  // séries: uma por rota, apenas rotas com 2+ observações
+  const series = useMemo(() => {
+    return Object.entries(routes)
+      .map(([key, r]) => ({
+        key,
+        label: (() => {
+          const [dest, dep, ret] = key.split("|");
+          return `${dest} ${dm(dep)}–${dm(ret)}`;
+        })(),
+        points: (r.observations || []).map(o => ({ t: new Date(o.checked_at).getTime(), p: o.price })),
+      }))
+      .filter(s => s.points.length >= 2)
+      .sort((a, b) => a.points[a.points.length - 1].p - b.points[b.points.length - 1].p)
+      .slice(0, 6);
+  }, [routes]);
+
+  if (series.length === 0)
+    return <p style={{ fontSize: 13, color: "var(--muted)" }}>
+      O gráfico aparece a partir da segunda execução, quando houver histórico para comparar.
+    </p>;
+
+  const W = 760, H = 260, PAD = { l: 64, r: 12, t: 12, b: 28 };
+  const allT = series.flatMap(s => s.points.map(p => p.t));
+  const allP = series.flatMap(s => s.points.map(p => p.p));
+  const tMin = Math.min(...allT), tMax = Math.max(...allT);
+  const pMin = Math.min(...allP) * 0.98, pMax = Math.max(...allP) * 1.02;
+  const x = t => PAD.l + ((t - tMin) / Math.max(1, tMax - tMin)) * (W - PAD.l - PAD.r);
+  const y = p => H - PAD.b - ((p - pMin) / Math.max(1, pMax - pMin)) * (H - PAD.t - PAD.b);
+
+  const yTicks = [pMin, (pMin + pMax) / 2, pMax];
+
+  return (
+    <div>
+      <div className="legend">
+        {series.map((s, i) => (
+          <span key={s.key}>
+            <span className="key" style={{ background: ROUTE_COLORS[i % ROUTE_COLORS.length] }}></span>
+            <span className="mono">{s.label}</span>
+          </span>
+        ))}
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "auto" }} role="img"
+           aria-label="Evolução dos preços por rota">
+        {yTicks.map((p, i) => (
+          <g key={i}>
+            <line x1={PAD.l} x2={W - PAD.r} y1={y(p)} y2={y(p)} stroke="var(--line)" strokeDasharray="3 4" />
+            <text x={PAD.l - 8} y={y(p) + 4} textAnchor="end" fontSize="10.5"
+                  fill="var(--muted)" fontFamily="'IBM Plex Mono', monospace">
+              {Math.round(p).toLocaleString("pt-BR")}
+            </text>
+          </g>
+        ))}
+        {series.map((s, i) => {
+          const color = ROUTE_COLORS[i % ROUTE_COLORS.length];
+          const d = s.points.map((pt, j) => `${j === 0 ? "M" : "L"}${x(pt.t)},${y(pt.p)}`).join(" ");
+          const last = s.points[s.points.length - 1];
+          return (
+            <g key={s.key}>
+              <path d={d} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" />
+              <circle cx={x(last.t)} cy={y(last.p)} r="3.5" fill={color} />
+            </g>
+          );
+        })}
+        <text x={PAD.l} y={H - 8} fontSize="10.5" fill="var(--muted)"
+              fontFamily="'IBM Plex Mono', monospace">{new Date(tMin).toLocaleDateString("pt-BR")}</text>
+        <text x={W - PAD.r} y={H - 8} textAnchor="end" fontSize="10.5" fill="var(--muted)"
+              fontFamily="'IBM Plex Mono', monospace">{new Date(tMax).toLocaleDateString("pt-BR")}</text>
+      </svg>
+    </div>
+  );
+}
+
+function App() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`data.json?t=${Date.now()}`)
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then(setData)
+      .catch(e => setError(e.message));
+  }, []);
+
+  if (error)
+    return (
+      <div className="wrap">
+        <header><div className="route-board">GRU <span className="arrow">→</span> ITA</div></header>
+        <div className="empty">
+          <p className="mono" style={{ marginBottom: 8 }}>SEM DADOS NO PAINEL</p>
+          <p>Ainda não existe <span className="mono">data.json</span> — ele é gerado na primeira execução do agente. Rode o workflow em Actions e recarregue.</p>
+        </div>
+      </div>
+    );
+
+  if (!data) return <div className="wrap"><p style={{ padding: "40px 0", color: "var(--muted)" }}>Carregando painel…</p></div>;
+
+  const best = data.offers[0];
+  const generated = new Date(data.generated_at);
+
+  // Top 3 mais baratas por destino
+  const byDest = {};
+  for (const o of data.offers) {
+    (byDest[o.destination] = byDest[o.destination] || []).push(o);
+  }
+  const destOrder = Object.keys(byDest).sort((a, b) => byDest[a][0].price - byDest[b][0].price);
+
+  return (
+    <div className="wrap">
+      <header>
+        <div className="route-board">
+          {data.origin} <span className="arrow">→</span> ITÁLIA
+        </div>
+        <div className="sub">
+          <span>Atualizado em {generated.toLocaleDateString("pt-BR")} às {generated.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}</span>
+          <span className="dot">Alerta abaixo de <span className="mono">{brl(data.price_ceiling, data.currency)}</span></span>
+        </div>
+      </header>
+
+      {best && (
+        <section className="boarding" aria-label="Melhor oferta">
+          <div className="boarding-head">
+            <span>Melhor oferta do dia</span>
+            {best.price <= data.price_ceiling && <span className="tag">ABAIXO DO TETO</span>}
+          </div>
+          <div className="boarding-body">
+            <div>
+              <div className="cities">
+                São Paulo → {CITY[best.destination] || best.destination}{" "}
+                <span className="mono" style={{ color: "var(--muted)", fontWeight: 400, fontSize: "0.7em" }}>
+                  {best.destination}
+                </span>
+              </div>
+              <div className="dates">
+                Ida {dm(best.departure)} · volta {dm(best.return_date)}
+              </div>
+              <div className="meta">
+                <span>Cia <span className="mono">{best.carrier}</span></span>
+                <span>Ida: {dur(best.duration_outbound)}, {stopsLabel(best.stops_outbound)}</span>
+                {best.google_flights_url &&
+                  <a href={best.google_flights_url} target="_blank" rel="noopener"
+                     style={{ color: "var(--board)" }}>Abrir no Google Flights ↗</a>}
+              </div>
+            </div>
+            <div className={"price-big" + (best.price <= data.price_ceiling ? " under-ceiling" : "")}>
+              <small>total ida e volta</small>
+              {brl(best.price, best.currency)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {destOrder.map(dest => (
+        <section key={dest}>
+          <h2>{CITY[dest] || dest} · {dest}</h2>
+          <div className="board-rows">
+            {byDest[dest].slice(0, 3).map((o, i) => {
+              const checkedToday = (data.checked_today || []).includes(`${o.destination}|${o.departure}|${o.return_date}`);
+              return (
+                <a className="board-row" key={i} href={o.google_flights_url || "#"}
+                   target="_blank" rel="noopener"
+                   style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}>
+                  <span className="dest">{o.destination}</span>
+                  <span className="info">
+                    <div className="when">
+                      Ida {dm(o.departure)} → volta {dm(o.return_date)}
+                      {checkedToday && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--drop)", letterSpacing: "0.1em" }}>● HOJE</span>}
+                    </div>
+                    <div className="detail">
+                      {o.carrier} · ida {dur(o.duration_outbound)} · {stopsLabel(o.stops_outbound)} · toque para abrir no Google Flights
+                    </div>
+                  </span>
+                  <span className={"price " + (o.price <= data.price_ceiling ? "ok" : "")}>
+                    {brl(o.price, o.currency)}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      <section>
+        <h2>Evolução dos preços</h2>
+        <div className="chart-card">
+          <PriceChart routes={data.routes} />
+        </div>
+      </section>
+
+      <footer>
+        Caça-Voos · preços do Google Flights via SerpAPI · o painel cobre todas as rotas em rodízio, algumas verificadas em dias anteriores
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

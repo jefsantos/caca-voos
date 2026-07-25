@@ -1,0 +1,57 @@
+name: Caça-Voos diário
+
+on:
+  schedule:
+    # 09:00 em Brasília (UTC-3) => 12:00 UTC — 1x/dia para caber na cota da SerpAPI
+    - cron: "0 12 * * *"
+  workflow_dispatch: {}   # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: write   # necessário para commitar o histórico e o data.json
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Rodar busca
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          ORIGIN: ${{ vars.ORIGIN || 'GRU' }}
+          DESTINATIONS: ${{ vars.DESTINATIONS || 'FCO,MXP,VCE' }}
+          DEPARTURE_START: ${{ vars.DEPARTURE_START || '2026-09-08' }}
+          DEPARTURE_END: ${{ vars.DEPARTURE_END || '2026-09-12' }}
+          STAY_DAYS: ${{ vars.STAY_DAYS || '5,6' }}
+          CURRENCY: ${{ vars.CURRENCY || 'BRL' }}
+          SEARCHES_PER_RUN: ${{ vars.SEARCHES_PER_RUN || '3' }}
+          PRICE_CEILING: ${{ vars.PRICE_CEILING || '4500' }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EVOLUTION_BASE_URL: ${{ secrets.EVOLUTION_BASE_URL }}
+          EVOLUTION_API_KEY: ${{ secrets.EVOLUTION_API_KEY }}
+          EVOLUTION_INSTANCE: ${{ secrets.EVOLUTION_INSTANCE }}
+          WHATSAPP_NUMBER: ${{ secrets.WHATSAPP_NUMBER }}
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
+        run: python caca_voos.py
+
+      - name: Commitar histórico e dados do dashboard
+        run: |
+          git config user.name "caca-voos-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase
+          git add price_history.json docs/data.json || true
+          git diff --cached --quiet || git commit -m "chore: atualiza preços [skip ci]"
+          git push
