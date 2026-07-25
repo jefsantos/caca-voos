@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-07-25T02:47:37",
+  "origin": "GRU",
+  "currency": "BRL",
+  "price_ceiling": 4000.0,
+  "destinations": [
+    "FCO",
+    "MXP",
+    "VCE"
+  ],
+  "checked_today": [
+    "FCO|2026-09-08|2026-09-13",
+    "MXP|2026-09-08|2026-09-13",
+    "VCE|2026-09-08|2026-09-13"
+  ],
+  "offers": [
+    {
+      "destination": "MXP",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-13",
+      "price": 5630.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h55",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MXP%20on%202026-09-08%20through%202026-09-13"
+    },
+    {
+      "destination": "VCE",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-13",
+      "price": 5639.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "15h05",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20VCE%20on%202026-09-08%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-13",
+      "price": 5688.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-08%20through%202026-09-13"
+    }
+  ],
+  "routes": {
+    "FCO|2026-09-08|2026-09-13": {
+      "min_price": 5688.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-25T02:47:24",
+          "price": 5688.0
+        }
+      ]
+    },
+    "MXP|2026-09-08|2026-09-13": {
+      "min_price": 5630.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-25T02:47:27",
+          "price": 5630.0
+        }
+      ]
+    },
+    "VCE|2026-09-08|2026-09-13": {
+      "min_price": 5639.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-25T02:47:36",
+          "price": 5639.0
+        }
+      ]
+    }
+  }
+}
