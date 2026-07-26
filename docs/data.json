@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T02:47:37",
+  "generated_at": "2026-07-26T01:24:12",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 4000.0,
@@ -9,11 +9,33 @@
     "VCE"
   ],
   "checked_today": [
-    "FCO|2026-09-08|2026-09-13",
-    "MXP|2026-09-08|2026-09-13",
-    "VCE|2026-09-08|2026-09-13"
+    "FCO|2026-09-08|2026-09-14",
+    "MXP|2026-09-08|2026-09-14",
+    "VCE|2026-09-08|2026-09-14"
   ],
   "offers": [
+    {
+      "destination": "MXP",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-14",
+      "price": 5532.0,
+      "currency": "BRL",
+      "carrier": "Ethiopian",
+      "stops_outbound": 1,
+      "duration_outbound": "47h05",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MXP%20on%202026-09-08%20through%202026-09-14"
+    },
+    {
+      "destination": "VCE",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-14",
+      "price": 5625.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "15h05",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20VCE%20on%202026-09-08%20through%202026-09-14"
+    },
     {
       "destination": "MXP",
       "departure": "2026-09-08",
@@ -35,6 +57,17 @@
       "stops_outbound": 1,
       "duration_outbound": "15h05",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20VCE%20on%202026-09-08%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-08",
+      "return_date": "2026-09-14",
+      "price": 5674.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-08%20through%202026-09-14"
     },
     {
       "destination": "FCO",
@@ -73,6 +106,33 @@
         {
           "checked_at": "2026-07-25T02:47:36",
           "price": 5639.0
+        }
+      ]
+    },
+    "FCO|2026-09-08|2026-09-14": {
+      "min_price": 5674.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T01:23:59",
+          "price": 5674.0
+        }
+      ]
+    },
+    "MXP|2026-09-08|2026-09-14": {
+      "min_price": 5532.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T01:24:02",
+          "price": 5532.0
+        }
+      ]
+    },
+    "VCE|2026-09-08|2026-09-14": {
+      "min_price": 5625.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T01:24:11",
+          "price": 5625.0
         }
       ]
     }
