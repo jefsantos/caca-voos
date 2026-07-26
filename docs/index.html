@@ -137,6 +137,46 @@
 
   footer { margin-top: 44px; font-size: 12px; color: var(--muted); text-align: center; }
 
+  /* Painel de configurações */
+  .gear {
+    background: var(--panel); border: 1px solid var(--line); color: var(--text);
+    border-radius: 10px; padding: 8px 14px; font-size: 13px; cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+  }
+  .gear:hover { border-color: var(--board); color: var(--board); }
+  .settings {
+    margin-top: 18px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px;
+  }
+  .settings h3 {
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 11.5px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .field input {
+    background: var(--bg); border: 1px solid var(--line); color: var(--text);
+    border-radius: 8px; padding: 9px 11px; font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .field input:focus { outline: none; border-color: var(--board); }
+  .field small { font-size: 11px; color: var(--muted); }
+  .settings .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .btn {
+    border: none; border-radius: 8px; padding: 10px 16px; font-size: 14px;
+    font-weight: 700; cursor: pointer; font-family: 'Archivo', sans-serif;
+  }
+  .btn-primary { background: var(--board); color: var(--bg); }
+  .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
+  .btn:disabled { opacity: 0.5; cursor: wait; }
+  .quota { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+  .quota.over { color: var(--rise); }
+  .status-msg { margin-top: 12px; font-size: 13px; }
+  .status-msg.ok { color: var(--drop); }
+  .status-msg.err { color: var(--rise); }
+  @media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+
   @media (max-width: 520px) {
     .boarding-body { grid-template-columns: 1fr; }
     .price-big { text-align: left; }
@@ -175,6 +215,171 @@ const dur = iso => {
 };
 
 const stopsLabel = n => (n === 0 ? "direto" : n === 1 ? "1 escala" : `${n} escalas`);
+
+// Detecta dono/repositório a partir da URL do GitHub Pages
+// (jefsantos.github.io/caca-voos -> jefsantos/caca-voos)
+function detectRepo() {
+  const host = location.hostname;                     // jefsantos.github.io
+  const seg = location.pathname.split("/").filter(Boolean); // ["caca-voos"]
+  if (host.endsWith(".github.io") && seg.length >= 1)
+    return { owner: host.split(".")[0], repo: seg[0] };
+  return { owner: "jefsantos", repo: "caca-voos" };   // fallback
+}
+
+const tokenStore = {
+  get() { try { return localStorage.getItem("cv_token") || ""; } catch { return ""; } },
+  set(v) { try { localStorage.setItem("cv_token", v); } catch {} },
+};
+
+function Settings({ config, onSaved }) {
+  const { owner, repo } = detectRepo();
+  const [form, setForm] = useState({
+    origin: config.origin || "GRU",
+    destinations: (config.destinations || []).join(","),
+    departure_start: config.departure_start || "2026-09-08",
+    departure_end: config.departure_end || "2026-09-12",
+    stay_days: (config.stay_days || []).join(","),
+    price_ceiling: config.price_ceiling || 4500,
+    searches_per_run: config.searches_per_run || 3,
+  });
+  const [token, setToken] = useState(tokenStore.get());
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState(null);
+
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+
+  // Estimativa de cota: dias de ida x estadias x destinos + buscas/dia x 30
+  const quota = useMemo(() => {
+    try {
+      const days = Math.round((new Date(form.departure_end) - new Date(form.departure_start)) / 86400000) + 1;
+      const stays = form.stay_days.split(",").filter(Boolean).length;
+      const dests = form.destinations.split(",").filter(Boolean).length;
+      const combos = days * stays * dests;
+      const monthly = Number(form.searches_per_run) * 30;
+      const cycle = Math.ceil(combos / Math.max(1, Number(form.searches_per_run)));
+      return { combos, monthly, cycle, valid: days > 0 && stays > 0 && dests > 0 };
+    } catch { return { valid: false }; }
+  }, [form]);
+
+  const buildConfig = () => ({
+    origin: form.origin.trim().toUpperCase(),
+    destinations: form.destinations.split(",").map(s => s.trim().toUpperCase()).filter(Boolean),
+    departure_start: form.departure_start,
+    departure_end: form.departure_end,
+    stay_days: form.stay_days.split(",").map(s => parseInt(s.trim(), 10)).filter(n => n > 0),
+    searches_per_run: Math.max(1, parseInt(form.searches_per_run, 10) || 3),
+    price_ceiling: Number(form.price_ceiling) || 4500,
+    currency: config.currency || "BRL",
+  });
+
+  const gh = (path, opts = {}) =>
+    fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
+      ...opts,
+      headers: {
+        "Authorization": `Bearer ${token.trim()}`,
+        "Accept": "application/vnd.github+json",
+        ...(opts.headers || {}),
+      },
+    });
+
+  const save = async () => {
+    if (!token.trim()) { setMsg({ t: "err", x: "Cole seu token do GitHub no campo acima para salvar." }); return; }
+    if (!quota.valid) { setMsg({ t: "err", x: "Confira as datas e os campos — algo ficou vazio ou invertido." }); return; }
+    setBusy(true); setMsg(null);
+    try {
+      tokenStore.set(token.trim());
+      const newCfg = JSON.stringify(buildConfig(), null, 2) + "\n";
+      // pega o sha atual do arquivo (obrigatório para atualizar)
+      const cur = await gh(`/contents/docs/config.json?ref=main`);
+      const sha = cur.ok ? (await cur.json()).sha : undefined;
+      const put = await gh(`/contents/docs/config.json`, {
+        method: "PUT",
+        body: JSON.stringify({
+          message: "config: atualizado pelo painel",
+          content: btoa(unescape(encodeURIComponent(newCfg))),
+          sha, branch: "main",
+        }),
+      });
+      if (!put.ok) throw new Error(`GitHub respondeu ${put.status}`);
+      setMsg({ t: "ok", x: "Configurações salvas! Valem a partir da próxima execução — ou toque em Rodar agora." });
+      onSaved(buildConfig());
+    } catch (e) {
+      setMsg({ t: "err", x: `Não foi possível salvar (${e.message}). Confira se o token tem permissão de Contents no repositório.` });
+    }
+    setBusy(false);
+  };
+
+  const runNow = async () => {
+    if (!token.trim()) { setMsg({ t: "err", x: "Cole seu token do GitHub para disparar uma execução." }); return; }
+    setBusy(true); setMsg(null);
+    try {
+      tokenStore.set(token.trim());
+      const r = await gh(`/actions/workflows/caca-voos.yml/dispatches`, {
+        method: "POST",
+        body: JSON.stringify({ ref: "main" }),
+      });
+      if (r.status !== 204) throw new Error(`GitHub respondeu ${r.status}`);
+      setMsg({ t: "ok", x: "Execução disparada! Em ~2 minutos, recarregue a página para ver os dados novos." });
+    } catch (e) {
+      setMsg({ t: "err", x: `Não foi possível disparar (${e.message}). Confira se o token tem permissão de Actions.` });
+    }
+    setBusy(false);
+  };
+
+  return (
+    <section className="settings" aria-label="Configurações">
+      <h3>Configurações da busca</h3>
+      <div className="grid2">
+        <div className="field">
+          <label>Origem (IATA)</label>
+          <input value={form.origin} onChange={e => set("origin", e.target.value)} placeholder="GRU" />
+        </div>
+        <div className="field">
+          <label>Destinos (IATA, por vírgula)</label>
+          <input value={form.destinations} onChange={e => set("destinations", e.target.value)} placeholder="FCO,MXP,VCE" />
+          <small>Roma FCO · Milão MXP · Veneza VCE · Nápoles NAP · Bolonha BLQ</small>
+        </div>
+        <div className="field">
+          <label>Ida — de</label>
+          <input type="date" value={form.departure_start} onChange={e => set("departure_start", e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Ida — até</label>
+          <input type="date" value={form.departure_end} onChange={e => set("departure_end", e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Dias de estadia (por vírgula)</label>
+          <input value={form.stay_days} onChange={e => set("stay_days", e.target.value)} placeholder="5,6" />
+          <small>A volta é calculada: ida + estadia</small>
+        </div>
+        <div className="field">
+          <label>Teto do alerta ({config.currency || "BRL"})</label>
+          <input type="number" value={form.price_ceiling} onChange={e => set("price_ceiling", e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Buscas por dia</label>
+          <input type="number" min="1" max="10" value={form.searches_per_run} onChange={e => set("searches_per_run", e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Token do GitHub (fica só neste navegador)</label>
+          <input type="password" value={token} onChange={e => setToken(e.target.value)} placeholder="github_pat_..." />
+          <small>Fine-grained token com Contents + Actions (read/write) só neste repositório</small>
+        </div>
+      </div>
+      {quota.valid && (
+        <p className={"quota" + (quota.monthly > 100 ? " over" : "")}>
+          {quota.combos} combinações · ciclo completo a cada {quota.cycle} dias · ~{quota.monthly} buscas/mês
+          {quota.monthly > 100 ? " — ACIMA da cota gratuita da SerpAPI (~100/mês)!" : " — dentro da cota gratuita."}
+        </p>
+      )}
+      <div className="actions">
+        <button className="btn btn-primary" disabled={busy} onClick={save}>Salvar configurações</button>
+        <button className="btn btn-ghost" disabled={busy} onClick={runNow}>▶ Rodar agora</button>
+      </div>
+      {msg && <p className={"status-msg " + (msg.t === "ok" ? "ok" : "err")}>{msg.x}</p>}
+    </section>
+  );
+}
 
 function PriceChart({ routes }) {
   // séries: uma por rota, apenas rotas com 2+ observações
@@ -252,12 +457,18 @@ function PriceChart({ routes }) {
 function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [config, setConfig] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     fetch(`data.json?t=${Date.now()}`)
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(setData)
       .catch(e => setError(e.message));
+    fetch(`config.json?t=${Date.now()}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(setConfig)
+      .catch(() => setConfig(null));
   }, []);
 
   if (error)
@@ -275,10 +486,16 @@ function App() {
 
   const best = data.offers[0];
   const generated = new Date(data.generated_at);
+  const effective = config || {
+    origin: data.origin, destinations: data.destinations,
+    price_ceiling: data.price_ceiling, currency: data.currency,
+  };
 
-  // Top 3 mais baratas por destino
+  // Mostra só os destinos da configuração atual (ignora rotas antigas)
+  const activeDests = effective.destinations || data.destinations || [];
   const byDest = {};
   for (const o of data.offers) {
+    if (activeDests.length && !activeDests.includes(o.destination)) continue;
     (byDest[o.destination] = byDest[o.destination] || []).push(o);
   }
   const destOrder = Object.keys(byDest).sort((a, b) => byDest[a][0].price - byDest[b][0].price);
@@ -286,14 +503,23 @@ function App() {
   return (
     <div className="wrap">
       <header>
-        <div className="route-board">
-          {data.origin} <span className="arrow">→</span> ITÁLIA
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+          <div className="route-board">
+            {effective.origin || data.origin} <span className="arrow">→</span> ITÁLIA
+          </div>
+          <button className="gear" onClick={() => setShowSettings(s => !s)}>
+            ⚙ Configurações
+          </button>
         </div>
         <div className="sub">
           <span>Atualizado em {generated.toLocaleDateString("pt-BR")} às {generated.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}</span>
-          <span className="dot">Alerta abaixo de <span className="mono">{brl(data.price_ceiling, data.currency)}</span></span>
+          <span className="dot">Alerta abaixo de <span className="mono">{brl(effective.price_ceiling ?? data.price_ceiling, data.currency)}</span></span>
         </div>
       </header>
+
+      {showSettings && config !== undefined && (
+        <Settings config={effective} onSaved={setConfig} />
+      )}
 
       {best && (
         <section className="boarding" aria-label="Melhor oferta">

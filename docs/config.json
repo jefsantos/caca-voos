@@ -1,0 +1,10 @@
+{
+  "origin": "GRU",
+  "destinations": ["FCO", "MXP", "VCE"],
+  "departure_start": "2026-09-08",
+  "departure_end": "2026-09-12",
+  "stay_days": [5, 6],
+  "searches_per_run": 3,
+  "price_ceiling": 4500,
+  "currency": "BRL"
+}

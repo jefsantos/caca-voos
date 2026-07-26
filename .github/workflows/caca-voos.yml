@@ -4,7 +4,7 @@ on:
   schedule:
     # 09:00 em Brasília (UTC-3) => 12:00 UTC — 1x/dia para caber na cota da SerpAPI
     - cron: "0 12 * * *"
-  workflow_dispatch: {}   # permite rodar manualmente pela aba Actions
+  workflow_dispatch: {}   # permite rodar manualmente (aba Actions ou botão do painel)
 
 permissions:
   contents: write   # necessário para commitar o histórico e o data.json
@@ -24,17 +24,11 @@ jobs:
       - name: Instalar dependências
         run: pip install requests
 
+      # As configurações de busca (origem, destinos, datas, teto, buscas/dia)
+      # vêm do docs/config.json — editável pelo painel web.
       - name: Rodar busca
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
-          ORIGIN: ${{ vars.ORIGIN || 'GRU' }}
-          DESTINATIONS: ${{ vars.DESTINATIONS || 'FCO,MXP,VCE' }}
-          DEPARTURE_START: ${{ vars.DEPARTURE_START || '2026-09-08' }}
-          DEPARTURE_END: ${{ vars.DEPARTURE_END || '2026-09-12' }}
-          STAY_DAYS: ${{ vars.STAY_DAYS || '5,6' }}
-          CURRENCY: ${{ vars.CURRENCY || 'BRL' }}
-          SEARCHES_PER_RUN: ${{ vars.SEARCHES_PER_RUN || '3' }}
-          PRICE_CEILING: ${{ vars.PRICE_CEILING || '4500' }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}

@@ -82,16 +82,38 @@ class Config:
 
     @staticmethod
     def load() -> "Config":
+        # Configurações de busca vêm do docs/config.json (editável pelo
+        # painel web). Variáveis de ambiente servem de fallback; segredos
+        # (chaves, SMTP) continuam vindo só do ambiente.
+        file_cfg = {}
+        cfg_path = Path(env("CONFIG_FILE", "docs/config.json"))
+        if cfg_path.exists():
+            try:
+                file_cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+                logging.info("Configurações carregadas de %s", cfg_path)
+            except json.JSONDecodeError as exc:
+                logging.error("config.json inválido (%s) — usando fallbacks.", exc)
+
+        def opt(key: str, env_name: str, default):
+            return file_cfg[key] if key in file_cfg else env(env_name, default)
+
+        destinations = opt("destinations", "DESTINATIONS", "FCO,MXP,VCE")
+        if isinstance(destinations, str):
+            destinations = [d.strip() for d in destinations.split(",") if d.strip()]
+        stay_days = opt("stay_days", "STAY_DAYS", "5,6")
+        if isinstance(stay_days, str):
+            stay_days = [int(x) for x in stay_days.split(",")]
+
         return Config(
             serpapi_key=env("SERPAPI_KEY", required=True),
-            origin=env("ORIGIN", "GRU"),
-            destinations=[d.strip().upper() for d in env("DESTINATIONS", "FCO,MXP,VCE").split(",") if d.strip()],
-            departure_start=date.fromisoformat(env("DEPARTURE_START", "2026-09-08")),
-            departure_end=date.fromisoformat(env("DEPARTURE_END", "2026-09-12")),
-            stay_days=[int(x) for x in env("STAY_DAYS", "5,6").split(",")],
-            currency=env("CURRENCY", "BRL"),
-            searches_per_run=int(env("SEARCHES_PER_RUN", "3")),
-            price_ceiling=float(env("PRICE_CEILING", "4500")),
+            origin=str(opt("origin", "ORIGIN", "GRU")).strip().upper(),
+            destinations=[str(d).upper() for d in destinations],
+            departure_start=date.fromisoformat(str(opt("departure_start", "DEPARTURE_START", "2026-09-08"))),
+            departure_end=date.fromisoformat(str(opt("departure_end", "DEPARTURE_END", "2026-09-12"))),
+            stay_days=[int(x) for x in stay_days],
+            currency=str(opt("currency", "CURRENCY", "BRL")).upper(),
+            searches_per_run=int(opt("searches_per_run", "SEARCHES_PER_RUN", "3")),
+            price_ceiling=float(opt("price_ceiling", "PRICE_CEILING", "4500")),
             smtp_host=env("SMTP_HOST"),
             smtp_port=int(env("SMTP_PORT", "587")),
             smtp_user=env("SMTP_USER"),
@@ -115,6 +137,12 @@ def all_combinations(cfg: Config) -> list:
     """Lista ordenada e estável de (destino, ida, volta). Os destinos são
     intercalados: com 3 buscas/dia, cada execução cobre os 3 destinos para
     um mesmo par de datas, em vez de passar dias seguidos num destino só."""
+    if cfg.departure_end < cfg.departure_start:
+        logging.error(
+            "Config inválida: data final (%s) antes da inicial (%s). Corrija no painel.",
+            cfg.departure_end, cfg.departure_start,
+        )
+        sys.exit(1)
     combos = []
     day = cfg.departure_start
     while day <= cfg.departure_end:
