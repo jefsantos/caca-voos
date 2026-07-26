@@ -51,7 +51,7 @@ jobs:
         run: |
           git config user.name "caca-voos-bot"
           git config user.email "bot@users.noreply.github.com"
-          git pull --rebase
           git add price_history.json docs/data.json || true
           git diff --cached --quiet || git commit -m "chore: atualiza preços [skip ci]"
+          git pull --rebase --autostash
           git push
