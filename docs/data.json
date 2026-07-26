@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T04:20:52",
+  "generated_at": "2026-07-26T11:40:25",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 4500.0,
@@ -7,11 +7,22 @@
     "FCO"
   ],
   "checked_today": [
-    "FCO|2026-09-13|2026-09-19",
-    "FCO|2026-09-14|2026-09-20",
-    "FCO|2026-09-07|2026-09-13"
+    "FCO|2026-09-08|2026-09-14",
+    "FCO|2026-09-09|2026-09-15",
+    "FCO|2026-09-10|2026-09-16"
   ],
   "offers": [
+    {
+      "destination": "FCO",
+      "departure": "2026-09-09",
+      "return_date": "2026-09-15",
+      "price": 5481.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-09%20through%202026-09-15"
+    },
     {
       "destination": "MXP",
       "departure": "2026-09-08",
@@ -102,6 +113,17 @@
     },
     {
       "destination": "FCO",
+      "departure": "2026-09-10",
+      "return_date": "2026-09-16",
+      "price": 5770.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-10%20through%202026-09-16"
+    },
+    {
+      "destination": "FCO",
       "departure": "2026-09-07",
       "return_date": "2026-09-13",
       "price": 6403.0,
@@ -145,6 +167,10 @@
       "observations": [
         {
           "checked_at": "2026-07-26T01:23:59",
+          "price": 5674.0
+        },
+        {
+          "checked_at": "2026-07-26T11:40:20",
           "price": 5674.0
         }
       ]
@@ -191,6 +217,24 @@
         {
           "checked_at": "2026-07-26T04:20:51",
           "price": 6403.0
+        }
+      ]
+    },
+    "FCO|2026-09-09|2026-09-15": {
+      "min_price": 5481.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T11:40:22",
+          "price": 5481.0
+        }
+      ]
+    },
+    "FCO|2026-09-10|2026-09-16": {
+      "min_price": 5770.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T11:40:24",
+          "price": 5770.0
         }
       ]
     }
