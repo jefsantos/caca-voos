@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T17:16:07",
+  "generated_at": "2026-07-27T01:49:27",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 4500.0,
@@ -7,9 +7,9 @@
     "FCO"
   ],
   "checked_today": [
-    "FCO|2026-09-22|2026-09-28",
-    "FCO|2026-09-23|2026-09-29",
-    "FCO|2026-09-24|2026-09-30"
+    "FCO|2026-09-17|2026-09-23",
+    "FCO|2026-09-18|2026-09-24",
+    "FCO|2026-09-19|2026-09-25"
   ],
   "offers": [
     {
@@ -27,7 +27,7 @@
       "destination": "FCO",
       "departure": "2026-09-17",
       "return_date": "2026-09-23",
-      "price": 4899.0,
+      "price": 5091.0,
       "currency": "BRL",
       "carrier": "Air Europa",
       "stops_outbound": 1,
@@ -42,7 +42,7 @@
       "currency": "BRL",
       "carrier": "Air Europa",
       "stops_outbound": 1,
-      "duration_outbound": "14h40",
+      "duration_outbound": "20h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-18%20through%202026-09-24"
     },
     {
@@ -389,6 +389,10 @@
         {
           "checked_at": "2026-07-26T12:50:27",
           "price": 4899.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:15",
+          "price": 5091.0
         }
       ]
     },
@@ -398,6 +402,10 @@
         {
           "checked_at": "2026-07-26T12:50:31",
           "price": 5091.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:23",
+          "price": 5091.0
         }
       ]
     },
@@ -406,6 +414,10 @@
       "observations": [
         {
           "checked_at": "2026-07-26T12:58:25",
+          "price": 5334.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:26",
           "price": 5334.0
         }
       ]
