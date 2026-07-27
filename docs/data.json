@@ -1,12 +1,16 @@
 {
-  "generated_at": "2026-07-27T03:12:45",
+  "generated_at": "2026-07-27T12:26:41",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
   "destinations": [
-    "RECIFE"
+    "FCO"
   ],
-  "checked_today": [],
+  "checked_today": [
+    "FCO|2026-09-18|2026-09-24",
+    "FCO|2026-09-19|2026-09-25",
+    "FCO|2026-09-20|2026-09-26"
+  ],
   "offers": [
     {
       "destination": "FCO",
@@ -34,11 +38,11 @@
       "destination": "FCO",
       "departure": "2026-09-18",
       "return_date": "2026-09-24",
-      "price": 5091.0,
+      "price": 5182.0,
       "currency": "BRL",
       "carrier": "Air Europa",
       "stops_outbound": 1,
-      "duration_outbound": "20h50",
+      "duration_outbound": "14h40",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-18%20through%202026-09-24"
     },
     {
@@ -56,7 +60,7 @@
       "destination": "FCO",
       "departure": "2026-09-19",
       "return_date": "2026-09-25",
-      "price": 5334.0,
+      "price": 5436.0,
       "currency": "BRL",
       "carrier": "Air Europa",
       "stops_outbound": 1,
@@ -208,6 +212,17 @@
     },
     {
       "destination": "FCO",
+      "departure": "2026-09-20",
+      "return_date": "2026-09-26",
+      "price": 5967.0,
+      "currency": "BRL",
+      "carrier": "KLM",
+      "stops_outbound": 1,
+      "duration_outbound": "20h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-20%20through%202026-09-26"
+    },
+    {
+      "destination": "FCO",
       "departure": "2026-09-12",
       "return_date": "2026-09-18",
       "price": 6013.0,
@@ -216,17 +231,6 @@
       "stops_outbound": 1,
       "duration_outbound": "20h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-12%20through%202026-09-18"
-    },
-    {
-      "destination": "FCO",
-      "departure": "2026-09-20",
-      "return_date": "2026-09-26",
-      "price": 6206.0,
-      "currency": "BRL",
-      "carrier": "KLM",
-      "stops_outbound": 1,
-      "duration_outbound": "16h00",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-20%20through%202026-09-26"
     },
     {
       "destination": "FCO",
@@ -402,6 +406,10 @@
         {
           "checked_at": "2026-07-27T01:49:23",
           "price": 5091.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:10",
+          "price": 5182.0
         }
       ]
     },
@@ -415,15 +423,23 @@
         {
           "checked_at": "2026-07-27T01:49:26",
           "price": 5334.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:16",
+          "price": 5436.0
         }
       ]
     },
     "FCO|2026-09-20|2026-09-26": {
-      "min_price": 6206.0,
+      "min_price": 5967.0,
       "observations": [
         {
           "checked_at": "2026-07-26T12:58:28",
           "price": 6206.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:40",
+          "price": 5967.0
         }
       ]
     },
