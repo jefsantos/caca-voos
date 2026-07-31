@@ -1,7 +1,7 @@
 {
   "origin": "GRU",
   "destinations": [
-    "MACEIO"
+    "MCZ"
   ],
   "departure_start": "2026-09-17",
   "departure_end": "2026-09-24",
@@ -9,6 +9,6 @@
     6
   ],
   "searches_per_run": 3,
-  "price_ceiling": 4800,
+  "price_ceiling": 100,
   "currency": "BRL"
 }
