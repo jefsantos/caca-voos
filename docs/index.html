@@ -162,6 +162,46 @@
   }
   .field input:focus { outline: none; border-color: var(--board); }
   .field small { font-size: 11px; color: var(--muted); }
+
+  /* Autocomplete de aeroportos */
+  .picker { position: relative; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 999px; padding: 4px 6px 4px 10px; font-size: 12.5px;
+  }
+  .chip .code {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    color: var(--board); letter-spacing: 0.06em;
+  }
+  .chip .x {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--line); color: var(--text); cursor: pointer;
+    font-size: 13px; line-height: 1; border: none;
+  }
+  .chip .x:hover { background: var(--rise); color: #fff; }
+  .picker-menu {
+    position: absolute; z-index: 30; left: 0; right: 0; top: calc(100% + 4px);
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; max-height: 260px; overflow-y: auto;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  }
+  .picker-opt {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 10px 12px; cursor: pointer; border-bottom: 1px solid var(--line);
+  }
+  .picker-opt:last-child { border-bottom: none; }
+  .picker-opt:hover, .picker-opt.active { background: var(--panel); }
+  .picker-opt .code {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    color: var(--board); min-width: 38px; letter-spacing: 0.04em;
+  }
+  .picker-opt .oc { font-weight: 600; }
+  .picker-opt .on { font-size: 12px; color: var(--muted); }
+  .picker-empty { padding: 12px; font-size: 12.5px; color: var(--muted); }
+
   .settings .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
   .btn {
     border: none; border-radius: 8px; padding: 10px 16px; font-size: 14px;
@@ -194,54 +234,123 @@
 <script type="text/babel" data-presets="react">
 const { useState, useEffect, useMemo } = React;
 
-// Nome de cidade por código IATA. Fallback: o próprio código.
-// Cobre Brasil (incl. Nordeste) + principais internacionais.
-const CITY = {
-  // --- Sudeste / Sul / Centro-Oeste (BR) ---
-  GRU: "São Paulo", CGH: "São Paulo", VCP: "Campinas", GIG: "Rio de Janeiro",
-  SDU: "Rio de Janeiro", CNF: "Belo Horizonte", PLU: "Belo Horizonte",
-  CWB: "Curitiba", POA: "Porto Alegre", FLN: "Florianópolis", BSB: "Brasília",
-  CGB: "Cuiabá", CGR: "Campo Grande", GYN: "Goiânia",
+// Base de aeroportos: código IATA, cidade, nome do terminal e região.
+// Cidades com mais de um aeroporto aparecem com uma linha por terminal,
+// para que o autocomplete deixe você escolher qual usar.
+const AIRPORTS = [
+  // --- Sudeste (BR) ---
+  { code: "GRU", city: "São Paulo", name: "Guarulhos (Cumbica)", region: "SUDESTE" },
+  { code: "CGH", city: "São Paulo", name: "Congonhas", region: "SUDESTE" },
+  { code: "VCP", city: "São Paulo", name: "Viracopos (Campinas)", region: "SUDESTE" },
+  { code: "GIG", city: "Rio de Janeiro", name: "Galeão", region: "SUDESTE" },
+  { code: "SDU", city: "Rio de Janeiro", name: "Santos Dumont", region: "SUDESTE" },
+  { code: "CNF", city: "Belo Horizonte", name: "Confins", region: "SUDESTE" },
+  { code: "PLU", city: "Belo Horizonte", name: "Pampulha", region: "SUDESTE" },
+  { code: "VIX", city: "Vitória", name: "Vitória", region: "SUDESTE" },
+  // --- Sul (BR) ---
+  { code: "CWB", city: "Curitiba", name: "Afonso Pena", region: "SUL" },
+  { code: "POA", city: "Porto Alegre", name: "Salgado Filho", region: "SUL" },
+  { code: "FLN", city: "Florianópolis", name: "Hercílio Luz", region: "SUL" },
+  { code: "IGU", city: "Foz do Iguaçu", name: "Cataratas", region: "SUL" },
+  { code: "NVT", city: "Navegantes", name: "Navegantes", region: "SUL" },
+  { code: "JOI", city: "Joinville", name: "Lauro Carneiro", region: "SUL" },
+  // --- Centro-Oeste (BR) ---
+  { code: "BSB", city: "Brasília", name: "Juscelino Kubitschek", region: "CENTRO-OESTE" },
+  { code: "CGB", city: "Cuiabá", name: "Marechal Rondon", region: "CENTRO-OESTE" },
+  { code: "CGR", city: "Campo Grande", name: "Campo Grande", region: "CENTRO-OESTE" },
+  { code: "GYN", city: "Goiânia", name: "Santa Genoveva", region: "CENTRO-OESTE" },
   // --- Nordeste (BR) ---
-  REC: "Recife", SSA: "Salvador", FOR: "Fortaleza", NAT: "Natal",
-  MCZ: "Maceió", AJU: "Aracaju", JPA: "João Pessoa", THE: "Teresina",
-  SLZ: "São Luís", IOS: "Ilhéus", BPS: "Porto Seguro", FEN: "Fernando de Noronha",
-  PNZ: "Petrolina", JDO: "Juazeiro do Norte", FLB: "Floriano",
+  { code: "REC", city: "Recife", name: "Guararapes", region: "NORDESTE" },
+  { code: "SSA", city: "Salvador", name: "Dep. Luís E. Magalhães", region: "NORDESTE" },
+  { code: "FOR", city: "Fortaleza", name: "Pinto Martins", region: "NORDESTE" },
+  { code: "NAT", city: "Natal", name: "São Gonçalo do Amarante", region: "NORDESTE" },
+  { code: "MCZ", city: "Maceió", name: "Zumbi dos Palmares", region: "NORDESTE" },
+  { code: "AJU", city: "Aracaju", name: "Santa Maria", region: "NORDESTE" },
+  { code: "JPA", city: "João Pessoa", name: "Castro Pinto", region: "NORDESTE" },
+  { code: "THE", city: "Teresina", name: "Senador Petrônio Portella", region: "NORDESTE" },
+  { code: "SLZ", city: "São Luís", name: "Marechal Cunha Machado", region: "NORDESTE" },
+  { code: "IOS", city: "Ilhéus", name: "Jorge Amado", region: "NORDESTE" },
+  { code: "BPS", city: "Porto Seguro", name: "Porto Seguro", region: "NORDESTE" },
+  { code: "FEN", city: "Fernando de Noronha", name: "Fernando de Noronha", region: "NORDESTE" },
+  { code: "PNZ", city: "Petrolina", name: "Senador Nilo Coelho", region: "NORDESTE" },
+  { code: "JDO", city: "Juazeiro do Norte", name: "Orlando Bezerra", region: "NORDESTE" },
   // --- Norte (BR) ---
-  BEL: "Belém", MAO: "Manaus", PVH: "Porto Velho", RBR: "Rio Branco",
-  BVB: "Boa Vista", MCP: "Macapá", PMW: "Palmas",
+  { code: "BEL", city: "Belém", name: "Val de Cans", region: "NORTE" },
+  { code: "MAO", city: "Manaus", name: "Eduardo Gomes", region: "NORTE" },
+  { code: "PVH", city: "Porto Velho", name: "Gov. Jorge Teixeira", region: "NORTE" },
+  { code: "RBR", city: "Rio Branco", name: "Rio Branco", region: "NORTE" },
+  { code: "BVB", city: "Boa Vista", name: "Boa Vista", region: "NORTE" },
+  { code: "MCP", city: "Macapá", name: "Macapá", region: "NORTE" },
+  { code: "PMW", city: "Palmas", name: "Palmas", region: "NORTE" },
+  { code: "STM", city: "Santarém", name: "Santarém", region: "NORTE" },
   // --- Itália ---
-  FCO: "Roma", CIA: "Roma", MXP: "Milão", LIN: "Milão", BGY: "Milão",
-  VCE: "Veneza", BLQ: "Bolonha", NAP: "Nápoles", FLR: "Florença",
-  PSA: "Pisa", TRN: "Turim", BRI: "Bari", CTA: "Catânia", PMO: "Palermo",
+  { code: "FCO", city: "Roma", name: "Fiumicino", region: "ITÁLIA" },
+  { code: "CIA", city: "Roma", name: "Ciampino", region: "ITÁLIA" },
+  { code: "MXP", city: "Milão", name: "Malpensa", region: "ITÁLIA" },
+  { code: "LIN", city: "Milão", name: "Linate", region: "ITÁLIA" },
+  { code: "BGY", city: "Milão", name: "Bérgamo (Orio al Serio)", region: "ITÁLIA" },
+  { code: "VCE", city: "Veneza", name: "Marco Polo", region: "ITÁLIA" },
+  { code: "BLQ", city: "Bolonha", name: "Guglielmo Marconi", region: "ITÁLIA" },
+  { code: "NAP", city: "Nápoles", name: "Capodichino", region: "ITÁLIA" },
+  { code: "FLR", city: "Florença", name: "Peretola", region: "ITÁLIA" },
+  { code: "PSA", city: "Pisa", name: "Galileo Galilei", region: "ITÁLIA" },
+  { code: "TRN", city: "Turim", name: "Caselle", region: "ITÁLIA" },
+  { code: "BRI", city: "Bari", name: "Karol Wojtyła", region: "ITÁLIA" },
+  { code: "CTA", city: "Catânia", name: "Fontanarossa", region: "ITÁLIA" },
+  { code: "PMO", city: "Palermo", name: "Falcone-Borsellino", region: "ITÁLIA" },
+  // --- Portugal / Espanha ---
+  { code: "LIS", city: "Lisboa", name: "Humberto Delgado", region: "PORTUGAL" },
+  { code: "OPO", city: "Porto", name: "Francisco Sá Carneiro", region: "PORTUGAL" },
+  { code: "MAD", city: "Madri", name: "Barajas", region: "ESPANHA" },
+  { code: "BCN", city: "Barcelona", name: "El Prat", region: "ESPANHA" },
   // --- Europa (outros) ---
-  LIS: "Lisboa", OPO: "Porto", MAD: "Madri", BCN: "Barcelona",
-  CDG: "Paris", ORY: "Paris", LHR: "Londres", LGW: "Londres",
-  AMS: "Amsterdã", FRA: "Frankfurt", MUC: "Munique", ZRH: "Zurique",
+  { code: "CDG", city: "Paris", name: "Charles de Gaulle", region: "EUROPA" },
+  { code: "ORY", city: "Paris", name: "Orly", region: "EUROPA" },
+  { code: "LHR", city: "Londres", name: "Heathrow", region: "EUROPA" },
+  { code: "LGW", city: "Londres", name: "Gatwick", region: "EUROPA" },
+  { code: "AMS", city: "Amsterdã", name: "Schiphol", region: "EUROPA" },
+  { code: "FRA", city: "Frankfurt", name: "Frankfurt", region: "EUROPA" },
+  { code: "MUC", city: "Munique", name: "Munique", region: "EUROPA" },
+  { code: "ZRH", city: "Zurique", name: "Zurique", region: "EUROPA" },
   // --- Américas / outros ---
-  MIA: "Miami", MCO: "Orlando", JFK: "Nova York", EWR: "Nova York",
-  LAX: "Los Angeles", EZE: "Buenos Aires", SCL: "Santiago", LIM: "Lima",
-  BOG: "Bogotá", CUN: "Cancún", PTY: "Cidade do Panamá",
-};
+  { code: "MIA", city: "Miami", name: "Miami Intl", region: "EUA" },
+  { code: "MCO", city: "Orlando", name: "Orlando Intl", region: "EUA" },
+  { code: "JFK", city: "Nova York", name: "John F. Kennedy", region: "EUA" },
+  { code: "EWR", city: "Nova York", name: "Newark", region: "EUA" },
+  { code: "LAX", city: "Los Angeles", name: "Los Angeles Intl", region: "EUA" },
+  { code: "EZE", city: "Buenos Aires", name: "Ezeiza", region: "AMÉRICA DO SUL" },
+  { code: "SCL", city: "Santiago", name: "Arturo Merino Benítez", region: "AMÉRICA DO SUL" },
+  { code: "LIM", city: "Lima", name: "Jorge Chávez", region: "AMÉRICA DO SUL" },
+  { code: "BOG", city: "Bogotá", name: "El Dorado", region: "AMÉRICA DO SUL" },
+  { code: "CUN", city: "Cancún", name: "Cancún", region: "AMÉRICA DO NORTE" },
+  { code: "PTY", city: "Cidade do Panamá", name: "Tocumen", region: "AMÉRICA DO NORTE" },
+];
 
-// Região por código IATA — usada só para nomear o painel automaticamente.
-const REGION = {};
-const REGION_CODES = {
-  "NORDESTE": ["REC","SSA","FOR","NAT","MCZ","AJU","JPA","THE","SLZ","IOS","BPS","FEN","PNZ","JDO","FLB"],
-  "NORTE": ["BEL","MAO","PVH","RBR","BVB","MCP","PMW"],
-  "SUDESTE": ["GRU","CGH","VCP","GIG","SDU","CNF","PLU"],
-  "SUL": ["CWB","POA","FLN"],
-  "CENTRO-OESTE": ["BSB","CGB","CGR","GYN"],
-  "ITÁLIA": ["FCO","CIA","MXP","LIN","BGY","VCE","BLQ","NAP","FLR","PSA","TRN","BRI","CTA","PMO"],
-  "PORTUGAL": ["LIS","OPO"],
-  "ESPANHA": ["MAD","BCN"],
-  "EUROPA": ["CDG","ORY","LHR","LGW","AMS","FRA","MUC","ZRH"],
-  "EUA": ["MIA","MCO","JFK","EWR","LAX"],
-};
-for (const [region, codes] of Object.entries(REGION_CODES))
-  for (const c of codes) REGION[c] = region;
+// Derivados da base (mantêm compatibilidade com o resto do painel).
+const CITY = {};      // código -> cidade
+const REGION = {};    // código -> região
+const AIRPORT_BY_CODE = {};
+for (const a of AIRPORTS) {
+  CITY[a.code] = a.city;
+  REGION[a.code] = a.region;
+  AIRPORT_BY_CODE[a.code] = a;
+}
 
 const cityName = code => CITY[code] || code;
+
+// Remove acentos p/ busca tolerante ("sao" acha "São Paulo").
+const norm = s => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+// Filtra aeroportos por cidade, nome do terminal ou código IATA.
+function searchAirports(query, exclude = []) {
+  const q = norm(query.trim());
+  if (!q) return [];
+  const ex = new Set(exclude);
+  return AIRPORTS
+    .filter(a => !ex.has(a.code))
+    .filter(a => norm(a.city).includes(q) || norm(a.name).includes(q) || a.code.toLowerCase().includes(q))
+    .slice(0, 8);
+}
 
 // Rótulo do painel a partir dos destinos configurados.
 // Todos na mesma região -> nome da região; senão, "VÁRIOS DESTINOS".
@@ -289,11 +398,107 @@ const tokenStore = {
   set(v) { try { localStorage.setItem("cv_token", v); } catch {} },
 };
 
+// Campo de destinos com autocomplete: digite a cidade/nome/código,
+// escolha na lista, e cada aeroporto vira um chip removível.
+// `value` é um array de códigos IATA; `onChange` recebe o novo array.
+function AirportPicker({ value, onChange, placeholder }) {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const boxRef = React.useRef(null);
+
+  const results = useMemo(() => searchAirports(query, value), [query, value]);
+
+  useEffect(() => { setActive(0); }, [query]);
+
+  // Fecha ao clicar fora
+  useEffect(() => {
+    const onDoc = e => { if (boxRef.current && !boxRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  const add = code => {
+    if (!value.includes(code)) onChange([...value, code]);
+    setQuery(""); setOpen(false);
+  };
+  const remove = code => onChange(value.filter(c => c !== code));
+
+  // Permite colar/digitar um código solto e confirmar com Enter mesmo sem
+  // estar na lista (ex.: aeroporto que não está no dicionário).
+  const commitRaw = () => {
+    const raw = query.trim().toUpperCase();
+    if (/^[A-Z]{3}$/.test(raw)) { add(raw); }
+  };
+
+  const onKey = e => {
+    if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) { setOpen(true); return; }
+    if (e.key === "ArrowDown") { e.preventDefault(); setActive(a => Math.min(a + 1, results.length - 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive(a => Math.max(a - 1, 0)); }
+    else if (e.key === "Enter") {
+      e.preventDefault();
+      if (results[active]) add(results[active].code);
+      else commitRaw();
+    } else if (e.key === "Backspace" && !query && value.length) {
+      remove(value[value.length - 1]);
+    }
+  };
+
+  return (
+    <div className="picker" ref={boxRef}>
+      {value.length > 0 && (
+        <div className="chips">
+          {value.map(code => {
+            const a = AIRPORT_BY_CODE[code];
+            return (
+              <span className="chip" key={code} title={a ? `${a.city} · ${a.name}` : code}>
+                <span className="code">{code}</span>
+                <span>{a ? a.city : "—"}</span>
+                <button type="button" className="x" aria-label={`Remover ${code}`}
+                        onClick={() => remove(code)}>×</button>
+              </span>
+            );
+          })}
+        </div>
+      )}
+      <input
+        value={query}
+        onChange={e => { setQuery(e.target.value); setOpen(true); }}
+        onFocus={() => query && setOpen(true)}
+        onKeyDown={onKey}
+        placeholder={value.length ? "Adicionar outro…" : (placeholder || "Digite a cidade ou código")}
+        autoComplete="off"
+      />
+      {open && query && (
+        <div className="picker-menu">
+          {results.length === 0 ? (
+            <div className="picker-empty">
+              Nenhum aeroporto na lista. Se souber o código IATA (3 letras),
+              digite-o e aperte Enter.
+            </div>
+          ) : results.map((a, i) => (
+            <div className={"picker-opt" + (i === active ? " active" : "")}
+                 key={a.code}
+                 onMouseEnter={() => setActive(i)}
+                 onMouseDown={e => { e.preventDefault(); add(a.code); }}>
+              <span className="code">{a.code}</span>
+              <span>
+                <span className="oc">{a.city}</span>{" "}
+                <span className="on">· {a.name}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Settings({ config, onSaved }) {
   const { owner, repo } = detectRepo();
   const [form, setForm] = useState({
     origin: config.origin || "GRU",
-    destinations: (config.destinations || []).join(","),
+    destinations: config.destinations || [],
     departure_start: config.departure_start || "2026-09-08",
     departure_end: config.departure_end || "2026-09-12",
     stay_days: (config.stay_days || []).join(","),
@@ -311,7 +516,7 @@ function Settings({ config, onSaved }) {
     try {
       const days = Math.round((new Date(form.departure_end) - new Date(form.departure_start)) / 86400000) + 1;
       const stays = form.stay_days.split(",").filter(Boolean).length;
-      const dests = form.destinations.split(",").filter(Boolean).length;
+      const dests = form.destinations.length;
       const combos = days * stays * dests;
       const monthly = Number(form.searches_per_run) * 30;
       const cycle = Math.ceil(combos / Math.max(1, Number(form.searches_per_run)));
@@ -321,7 +526,7 @@ function Settings({ config, onSaved }) {
 
   const buildConfig = () => ({
     origin: form.origin.trim().toUpperCase(),
-    destinations: form.destinations.split(",").map(s => s.trim().toUpperCase()).filter(Boolean),
+    destinations: form.destinations.map(s => String(s).trim().toUpperCase()).filter(Boolean),
     departure_start: form.departure_start,
     departure_end: form.departure_end,
     stay_days: form.stay_days.split(",").map(s => parseInt(s.trim(), 10)).filter(n => n > 0),
@@ -393,9 +598,13 @@ function Settings({ config, onSaved }) {
           <input value={form.origin} onChange={e => set("origin", e.target.value)} placeholder="GRU" />
         </div>
         <div className="field">
-          <label>Destinos (IATA, por vírgula)</label>
-          <input value={form.destinations} onChange={e => set("destinations", e.target.value)} placeholder="FCO,MXP,VCE" />
-          <small>Ex.: Recife REC · Fortaleza FOR · Natal NAT · Salvador SSA · Roma FCO · Lisboa LIS</small>
+          <label>Destinos</label>
+          <AirportPicker
+            value={form.destinations}
+            onChange={v => set("destinations", v)}
+            placeholder="Digite a cidade (ex.: Maceió) ou código (MCZ)"
+          />
+          <small>Digite o nome da cidade e escolha o aeroporto na lista. Cidades com mais de um terminal (São Paulo, Rio, Milão…) mostram todas as opções.</small>
         </div>
         <div className="field">
           <label>Ida — de</label>
