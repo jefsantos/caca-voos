@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T11:28:24",
+  "generated_at": "2026-07-31T13:27:07",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
@@ -7,9 +7,9 @@
     "MCZ"
   ],
   "checked_today": [
-    "MCZ|2026-09-19|2026-09-25",
-    "MCZ|2026-09-20|2026-09-26",
-    "MCZ|2026-09-21|2026-09-27"
+    "MCZ|2026-09-22|2026-09-28",
+    "MCZ|2026-09-23|2026-09-29",
+    "MCZ|2026-09-24|2026-09-30"
   ],
   "offers": [
     {
@@ -46,6 +46,28 @@
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-19%20through%202026-09-25"
     },
     {
+      "destination": "MCZ",
+      "departure": "2026-09-22",
+      "return_date": "2026-09-28",
+      "price": 1580.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-22%20through%202026-09-28"
+    },
+    {
+      "destination": "MCZ",
+      "departure": "2026-09-23",
+      "return_date": "2026-09-29",
+      "price": 1632.0,
+      "currency": "BRL",
+      "carrier": "Gol",
+      "stops_outbound": 0,
+      "duration_outbound": "3h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-23%20through%202026-09-29"
+    },
+    {
       "destination": "NAT",
       "departure": "2026-09-24",
       "return_date": "2026-09-30",
@@ -55,6 +77,17 @@
       "stops_outbound": 0,
       "duration_outbound": "3h15",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-24%20through%202026-09-30"
+    },
+    {
+      "destination": "MCZ",
+      "departure": "2026-09-24",
+      "return_date": "2026-09-30",
+      "price": 1792.0,
+      "currency": "BRL",
+      "carrier": "Gol",
+      "stops_outbound": 1,
+      "duration_outbound": "4h30",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-24%20through%202026-09-30"
     },
     {
       "destination": "NAT",
@@ -715,6 +748,33 @@
         {
           "checked_at": "2026-07-31T11:28:23",
           "price": 1903.0
+        }
+      ]
+    },
+    "MCZ|2026-09-22|2026-09-28": {
+      "min_price": 1580.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T13:26:55",
+          "price": 1580.0
+        }
+      ]
+    },
+    "MCZ|2026-09-23|2026-09-29": {
+      "min_price": 1632.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T13:26:58",
+          "price": 1632.0
+        }
+      ]
+    },
+    "MCZ|2026-09-24|2026-09-30": {
+      "min_price": 1792.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T13:27:06",
+          "price": 1792.0
         }
       ]
     }
