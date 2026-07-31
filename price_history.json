@@ -296,8 +296,35 @@
           "price": 6108.0
         }
       ]
+    },
+    "MCZ|2026-09-18|2026-09-24": {
+      "min_price": 1255.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T02:48:10",
+          "price": 1255.0
+        }
+      ]
+    },
+    "MCZ|2026-09-19|2026-09-25": {
+      "min_price": 1574.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T02:48:13",
+          "price": 1574.0
+        }
+      ]
+    },
+    "MCZ|2026-09-20|2026-09-26": {
+      "min_price": 1892.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T02:48:16",
+          "price": 1892.0
+        }
+      ]
     }
   },
-  "rotation_index": 1,
-  "last_run": "2026-07-31T02:27:17"
+  "rotation_index": 4,
+  "last_run": "2026-07-31T02:48:17"
 }
