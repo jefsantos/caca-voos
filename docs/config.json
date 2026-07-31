@@ -1,8 +1,7 @@
 {
   "origin": "GRU",
   "destinations": [
-    "MCZ",
-    "JPA"
+    "NAT"
   ],
   "departure_start": "2026-09-17",
   "departure_end": "2026-09-24",
