@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T13:27:07",
+  "generated_at": "2026-07-31T13:40:37",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
@@ -7,9 +7,9 @@
     "MCZ"
   ],
   "checked_today": [
-    "MCZ|2026-09-22|2026-09-28",
-    "MCZ|2026-09-23|2026-09-29",
-    "MCZ|2026-09-24|2026-09-30"
+    "MCZ|2026-09-17|2026-09-23",
+    "MCZ|2026-09-18|2026-09-24",
+    "MCZ|2026-09-19|2026-09-25"
   ],
   "offers": [
     {
@@ -27,11 +27,11 @@
       "destination": "MCZ",
       "departure": "2026-09-18",
       "return_date": "2026-09-24",
-      "price": 1255.0,
+      "price": 1579.0,
       "currency": "BRL",
       "carrier": "Gol",
-      "stops_outbound": 0,
-      "duration_outbound": "3h00",
+      "stops_outbound": 1,
+      "duration_outbound": "7h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-18%20through%202026-09-24"
     },
     {
@@ -55,6 +55,17 @@
       "stops_outbound": 0,
       "duration_outbound": "2h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-22%20through%202026-09-28"
+    },
+    {
+      "destination": "MCZ",
+      "departure": "2026-09-17",
+      "return_date": "2026-09-23",
+      "price": 1582.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-17%20through%202026-09-23"
     },
     {
       "destination": "MCZ",
@@ -669,6 +680,10 @@
         {
           "checked_at": "2026-07-31T02:48:10",
           "price": 1255.0
+        },
+        {
+          "checked_at": "2026-07-31T13:40:33",
+          "price": 1579.0
         }
       ]
     },
@@ -685,6 +700,10 @@
         },
         {
           "checked_at": "2026-07-31T11:28:18",
+          "price": 1580.0
+        },
+        {
+          "checked_at": "2026-07-31T13:40:36",
           "price": 1580.0
         }
       ]
@@ -775,6 +794,15 @@
         {
           "checked_at": "2026-07-31T13:27:06",
           "price": 1792.0
+        }
+      ]
+    },
+    "MCZ|2026-09-17|2026-09-23": {
+      "min_price": 1582.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T13:40:24",
+          "price": 1582.0
         }
       ]
     }
