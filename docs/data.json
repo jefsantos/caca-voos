@@ -1,19 +1,28 @@
 {
-  "generated_at": "2026-07-26T01:24:12",
+  "generated_at": "2026-07-30T13:27:22",
   "origin": "GRU",
   "currency": "BRL",
-  "price_ceiling": 4000.0,
+  "price_ceiling": 4800.0,
   "destinations": [
-    "FCO",
-    "MXP",
-    "VCE"
+    "FCO"
   ],
   "checked_today": [
-    "FCO|2026-09-08|2026-09-14",
-    "MXP|2026-09-08|2026-09-14",
-    "VCE|2026-09-08|2026-09-14"
+    "FCO|2026-09-20|2026-09-26",
+    "FCO|2026-09-21|2026-09-27",
+    "FCO|2026-09-22|2026-09-28"
   ],
   "offers": [
+    {
+      "destination": "FCO",
+      "departure": "2026-09-09",
+      "return_date": "2026-09-15",
+      "price": 5481.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-09%20through%202026-09-15"
+    },
     {
       "destination": "MXP",
       "departure": "2026-09-08",
@@ -24,6 +33,17 @@
       "stops_outbound": 1,
       "duration_outbound": "47h05",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MXP%20on%202026-09-08%20through%202026-09-14"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-13",
+      "return_date": "2026-09-19",
+      "price": 5624.0,
+      "currency": "BRL",
+      "carrier": "Tap Air Portugal",
+      "stops_outbound": 1,
+      "duration_outbound": "18h10",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-13%20through%202026-09-19"
     },
     {
       "destination": "VCE",
@@ -79,6 +99,149 @@
       "stops_outbound": 1,
       "duration_outbound": "14h40",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-08%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-24",
+      "return_date": "2026-09-30",
+      "price": 5692.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-24%20through%202026-09-30"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-14",
+      "return_date": "2026-09-20",
+      "price": 5770.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-14%20through%202026-09-20"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-10",
+      "return_date": "2026-09-16",
+      "price": 5770.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-10%20through%202026-09-16"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-11",
+      "return_date": "2026-09-17",
+      "price": 5770.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-11%20through%202026-09-17"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-17",
+      "return_date": "2026-09-23",
+      "price": 5918.0,
+      "currency": "BRL",
+      "carrier": "KLM",
+      "stops_outbound": 1,
+      "duration_outbound": "16h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-17%20through%202026-09-23"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-12",
+      "return_date": "2026-09-18",
+      "price": 6013.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-12%20through%202026-09-18"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-23",
+      "return_date": "2026-09-29",
+      "price": 6108.0,
+      "currency": "BRL",
+      "carrier": "KLM",
+      "stops_outbound": 1,
+      "duration_outbound": "16h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-23%20through%202026-09-29"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-20",
+      "return_date": "2026-09-26",
+      "price": 6341.0,
+      "currency": "BRL",
+      "carrier": "KLM",
+      "stops_outbound": 1,
+      "duration_outbound": "20h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-20%20through%202026-09-26"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-22",
+      "return_date": "2026-09-28",
+      "price": 6359.0,
+      "currency": "BRL",
+      "carrier": "Gol + Air Europa",
+      "stops_outbound": 2,
+      "duration_outbound": "19h25",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-22%20through%202026-09-28"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-18",
+      "return_date": "2026-09-24",
+      "price": 6382.0,
+      "currency": "BRL",
+      "carrier": "LATAM + Lufthansa",
+      "stops_outbound": 1,
+      "duration_outbound": "18h30",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-18%20through%202026-09-24"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-07",
+      "return_date": "2026-09-13",
+      "price": 6403.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "14h40",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-07%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-19",
+      "return_date": "2026-09-25",
+      "price": 6454.0,
+      "currency": "BRL",
+      "carrier": "LATAM + Lufthansa",
+      "stops_outbound": 1,
+      "duration_outbound": "18h30",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-19%20through%202026-09-25"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-21",
+      "return_date": "2026-09-27",
+      "price": 6800.0,
+      "currency": "BRL",
+      "carrier": "Tap Air Portugal",
+      "stops_outbound": 1,
+      "duration_outbound": "15h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-21%20through%202026-09-27"
     }
   ],
   "routes": {
@@ -115,6 +278,10 @@
         {
           "checked_at": "2026-07-26T01:23:59",
           "price": 5674.0
+        },
+        {
+          "checked_at": "2026-07-26T11:40:20",
+          "price": 5674.0
         }
       ]
     },
@@ -133,6 +300,245 @@
         {
           "checked_at": "2026-07-26T01:24:11",
           "price": 5625.0
+        }
+      ]
+    },
+    "FCO|2026-09-13|2026-09-19": {
+      "min_price": 5624.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T04:20:46",
+          "price": 5770.0
+        },
+        {
+          "checked_at": "2026-07-26T12:33:41",
+          "price": 5624.0
+        }
+      ]
+    },
+    "FCO|2026-09-14|2026-09-20": {
+      "min_price": 5770.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T04:20:49",
+          "price": 5770.0
+        }
+      ]
+    },
+    "FCO|2026-09-07|2026-09-13": {
+      "min_price": 6403.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T04:20:51",
+          "price": 6403.0
+        }
+      ]
+    },
+    "FCO|2026-09-09|2026-09-15": {
+      "min_price": 5481.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T11:40:22",
+          "price": 5481.0
+        }
+      ]
+    },
+    "FCO|2026-09-10|2026-09-16": {
+      "min_price": 5770.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T11:40:24",
+          "price": 5770.0
+        }
+      ]
+    },
+    "FCO|2026-09-11|2026-09-17": {
+      "min_price": 5770.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:33:30",
+          "price": 5770.0
+        }
+      ]
+    },
+    "FCO|2026-09-12|2026-09-18": {
+      "min_price": 6013.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:33:39",
+          "price": 6013.0
+        }
+      ]
+    },
+    "FCO|2026-09-24|2026-09-30": {
+      "min_price": 4839.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:50:22",
+          "price": 4839.0
+        },
+        {
+          "checked_at": "2026-07-26T17:16:06",
+          "price": 4839.0
+        },
+        {
+          "checked_at": "2026-07-28T13:30:26",
+          "price": 5263.0
+        },
+        {
+          "checked_at": "2026-07-29T13:45:58",
+          "price": 5692.0
+        }
+      ]
+    },
+    "FCO|2026-09-17|2026-09-23": {
+      "min_price": 4899.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:50:27",
+          "price": 4899.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:15",
+          "price": 5091.0
+        },
+        {
+          "checked_at": "2026-07-28T13:30:30",
+          "price": 4957.0
+        },
+        {
+          "checked_at": "2026-07-29T18:36:03",
+          "price": 5918.0
+        }
+      ]
+    },
+    "FCO|2026-09-18|2026-09-24": {
+      "min_price": 5091.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:50:31",
+          "price": 5091.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:23",
+          "price": 5091.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:10",
+          "price": 5182.0
+        },
+        {
+          "checked_at": "2026-07-28T13:30:33",
+          "price": 5417.0
+        },
+        {
+          "checked_at": "2026-07-29T18:36:10",
+          "price": 6382.0
+        }
+      ]
+    },
+    "FCO|2026-09-19|2026-09-25": {
+      "min_price": 5334.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:58:25",
+          "price": 5334.0
+        },
+        {
+          "checked_at": "2026-07-27T01:49:26",
+          "price": 5334.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:16",
+          "price": 5436.0
+        },
+        {
+          "checked_at": "2026-07-28T15:59:33",
+          "price": 5774.0
+        },
+        {
+          "checked_at": "2026-07-29T18:36:16",
+          "price": 6454.0
+        }
+      ]
+    },
+    "FCO|2026-09-20|2026-09-26": {
+      "min_price": 5967.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:58:28",
+          "price": 6206.0
+        },
+        {
+          "checked_at": "2026-07-27T12:26:40",
+          "price": 5967.0
+        },
+        {
+          "checked_at": "2026-07-28T15:59:40",
+          "price": 6393.0
+        },
+        {
+          "checked_at": "2026-07-30T13:27:00",
+          "price": 6341.0
+        }
+      ]
+    },
+    "FCO|2026-09-21|2026-09-27": {
+      "min_price": 5770.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T12:58:34",
+          "price": 5770.0
+        },
+        {
+          "checked_at": "2026-07-27T14:10:52",
+          "price": 5892.0
+        },
+        {
+          "checked_at": "2026-07-28T15:59:45",
+          "price": 5927.0
+        },
+        {
+          "checked_at": "2026-07-30T13:27:07",
+          "price": 6800.0
+        }
+      ]
+    },
+    "FCO|2026-09-22|2026-09-28": {
+      "min_price": 5284.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T17:15:56",
+          "price": 5284.0
+        },
+        {
+          "checked_at": "2026-07-27T14:10:59",
+          "price": 5638.0
+        },
+        {
+          "checked_at": "2026-07-29T13:45:49",
+          "price": 6255.0
+        },
+        {
+          "checked_at": "2026-07-30T13:27:21",
+          "price": 6359.0
+        }
+      ]
+    },
+    "FCO|2026-09-23|2026-09-29": {
+      "min_price": 5527.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-26T17:16:01",
+          "price": 5527.0
+        },
+        {
+          "checked_at": "2026-07-27T14:11:06",
+          "price": 5638.0
+        },
+        {
+          "checked_at": "2026-07-29T13:45:53",
+          "price": 6108.0
         }
       ]
     }
