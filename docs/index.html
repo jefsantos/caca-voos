@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Caça-Voos · GRU → Itália</title>
+<title>Caça-Voos · Monitor de passagens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -194,7 +194,65 @@
 <script type="text/babel" data-presets="react">
 const { useState, useEffect, useMemo } = React;
 
-const CITY = { FCO: "Roma", MXP: "Milão", VCE: "Veneza", LIN: "Milão", CIA: "Roma", BLQ: "Bolonha", NAP: "Nápoles" };
+// Nome de cidade por código IATA. Fallback: o próprio código.
+// Cobre Brasil (incl. Nordeste) + principais internacionais.
+const CITY = {
+  // --- Sudeste / Sul / Centro-Oeste (BR) ---
+  GRU: "São Paulo", CGH: "São Paulo", VCP: "Campinas", GIG: "Rio de Janeiro",
+  SDU: "Rio de Janeiro", CNF: "Belo Horizonte", PLU: "Belo Horizonte",
+  CWB: "Curitiba", POA: "Porto Alegre", FLN: "Florianópolis", BSB: "Brasília",
+  CGB: "Cuiabá", CGR: "Campo Grande", GYN: "Goiânia",
+  // --- Nordeste (BR) ---
+  REC: "Recife", SSA: "Salvador", FOR: "Fortaleza", NAT: "Natal",
+  MCZ: "Maceió", AJU: "Aracaju", JPA: "João Pessoa", THE: "Teresina",
+  SLZ: "São Luís", IOS: "Ilhéus", BPS: "Porto Seguro", FEN: "Fernando de Noronha",
+  PNZ: "Petrolina", JDO: "Juazeiro do Norte", FLB: "Floriano",
+  // --- Norte (BR) ---
+  BEL: "Belém", MAO: "Manaus", PVH: "Porto Velho", RBR: "Rio Branco",
+  BVB: "Boa Vista", MCP: "Macapá", PMW: "Palmas",
+  // --- Itália ---
+  FCO: "Roma", CIA: "Roma", MXP: "Milão", LIN: "Milão", BGY: "Milão",
+  VCE: "Veneza", BLQ: "Bolonha", NAP: "Nápoles", FLR: "Florença",
+  PSA: "Pisa", TRN: "Turim", BRI: "Bari", CTA: "Catânia", PMO: "Palermo",
+  // --- Europa (outros) ---
+  LIS: "Lisboa", OPO: "Porto", MAD: "Madri", BCN: "Barcelona",
+  CDG: "Paris", ORY: "Paris", LHR: "Londres", LGW: "Londres",
+  AMS: "Amsterdã", FRA: "Frankfurt", MUC: "Munique", ZRH: "Zurique",
+  // --- Américas / outros ---
+  MIA: "Miami", MCO: "Orlando", JFK: "Nova York", EWR: "Nova York",
+  LAX: "Los Angeles", EZE: "Buenos Aires", SCL: "Santiago", LIM: "Lima",
+  BOG: "Bogotá", CUN: "Cancún", PTY: "Cidade do Panamá",
+};
+
+// Região por código IATA — usada só para nomear o painel automaticamente.
+const REGION = {};
+const REGION_CODES = {
+  "NORDESTE": ["REC","SSA","FOR","NAT","MCZ","AJU","JPA","THE","SLZ","IOS","BPS","FEN","PNZ","JDO","FLB"],
+  "NORTE": ["BEL","MAO","PVH","RBR","BVB","MCP","PMW"],
+  "SUDESTE": ["GRU","CGH","VCP","GIG","SDU","CNF","PLU"],
+  "SUL": ["CWB","POA","FLN"],
+  "CENTRO-OESTE": ["BSB","CGB","CGR","GYN"],
+  "ITÁLIA": ["FCO","CIA","MXP","LIN","BGY","VCE","BLQ","NAP","FLR","PSA","TRN","BRI","CTA","PMO"],
+  "PORTUGAL": ["LIS","OPO"],
+  "ESPANHA": ["MAD","BCN"],
+  "EUROPA": ["CDG","ORY","LHR","LGW","AMS","FRA","MUC","ZRH"],
+  "EUA": ["MIA","MCO","JFK","EWR","LAX"],
+};
+for (const [region, codes] of Object.entries(REGION_CODES))
+  for (const c of codes) REGION[c] = region;
+
+const cityName = code => CITY[code] || code;
+
+// Rótulo do painel a partir dos destinos configurados.
+// Todos na mesma região -> nome da região; senão, "VÁRIOS DESTINOS".
+function destinationLabel(destinations) {
+  if (!destinations || destinations.length === 0) return "SEUS VOOS";
+  const regions = new Set(destinations.map(d => REGION[d]).filter(Boolean));
+  if (regions.size === 1) return [...regions][0];
+  if (destinations.length === 1) return cityName(destinations[0]).toUpperCase();
+  return "VÁRIOS DESTINOS";
+}
+
 const ROUTE_COLORS = ["#FFB627", "#3ECF8E", "#6CA0F6", "#E57BD1", "#F2724B", "#9B8CFF"];
 
 const brl = (v, cur) =>
@@ -337,7 +395,7 @@ function Settings({ config, onSaved }) {
         <div className="field">
           <label>Destinos (IATA, por vírgula)</label>
           <input value={form.destinations} onChange={e => set("destinations", e.target.value)} placeholder="FCO,MXP,VCE" />
-          <small>Roma FCO · Milão MXP · Veneza VCE · Nápoles NAP · Bolonha BLQ</small>
+          <small>Ex.: Recife REC · Fortaleza FOR · Natal NAT · Salvador SSA · Roma FCO · Lisboa LIS</small>
         </div>
         <div className="field">
           <label>Ida — de</label>
@@ -474,7 +532,9 @@ function App() {
   if (error)
     return (
       <div className="wrap">
-        <header><div className="route-board">GRU <span className="arrow">→</span> ITA</div></header>
+        <header><div className="route-board">
+          {(config && config.origin) || "GRU"} <span className="arrow">→</span> {destinationLabel(config && config.destinations)}
+        </div></header>
         <div className="empty">
           <p className="mono" style={{ marginBottom: 8 }}>SEM DADOS NO PAINEL</p>
           <p>Ainda não existe <span className="mono">data.json</span> — ele é gerado na primeira execução do agente. Rode o workflow em Actions e recarregue.</p>
@@ -505,7 +565,7 @@ function App() {
       <header>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
           <div className="route-board">
-            {effective.origin || data.origin} <span className="arrow">→</span> ITÁLIA
+            {effective.origin || data.origin} <span className="arrow">→</span> {destinationLabel(activeDests)}
           </div>
           <button className="gear" onClick={() => setShowSettings(s => !s)}>
             ⚙ Configurações
@@ -530,7 +590,7 @@ function App() {
           <div className="boarding-body">
             <div>
               <div className="cities">
-                São Paulo → {CITY[best.destination] || best.destination}{" "}
+                {cityName(effective.origin || data.origin)} → {cityName(best.destination)}{" "}
                 <span className="mono" style={{ color: "var(--muted)", fontWeight: 400, fontSize: "0.7em" }}>
                   {best.destination}
                 </span>
@@ -556,7 +616,7 @@ function App() {
 
       {destOrder.map(dest => (
         <section key={dest}>
-          <h2>{CITY[dest] || dest} · {dest}</h2>
+          <h2>{cityName(dest)} · {dest}</h2>
           <div className="board-rows">
             {byDest[dest].slice(0, 3).map((o, i) => {
               const checkedToday = (data.checked_today || []).includes(`${o.destination}|${o.departure}|${o.return_date}`);
