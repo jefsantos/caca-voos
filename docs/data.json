@@ -1,16 +1,15 @@
 {
-  "generated_at": "2026-07-31T02:53:32",
+  "generated_at": "2026-07-31T03:06:45",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
   "destinations": [
-    "MCZ",
-    "JPA"
+    "NAT"
   ],
   "checked_today": [
-    "MCZ|2026-09-19|2026-09-25",
-    "JPA|2026-09-19|2026-09-25",
-    "MCZ|2026-09-20|2026-09-26"
+    "NAT|2026-09-24|2026-09-30",
+    "NAT|2026-09-17|2026-09-23",
+    "NAT|2026-09-18|2026-09-24"
   ],
   "offers": [
     {
@@ -45,6 +44,39 @@
       "stops_outbound": 0,
       "duration_outbound": "2h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-19%20through%202026-09-25"
+    },
+    {
+      "destination": "NAT",
+      "departure": "2026-09-24",
+      "return_date": "2026-09-30",
+      "price": 1702.0,
+      "currency": "BRL",
+      "carrier": "Gol",
+      "stops_outbound": 0,
+      "duration_outbound": "3h15",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-24%20through%202026-09-30"
+    },
+    {
+      "destination": "NAT",
+      "departure": "2026-09-17",
+      "return_date": "2026-09-23",
+      "price": 1867.0,
+      "currency": "BRL",
+      "carrier": "Gol",
+      "stops_outbound": 0,
+      "duration_outbound": "3h15",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-17%20through%202026-09-23"
+    },
+    {
+      "destination": "NAT",
+      "departure": "2026-09-18",
+      "return_date": "2026-09-24",
+      "price": 1867.0,
+      "currency": "BRL",
+      "carrier": "Gol",
+      "stops_outbound": 0,
+      "duration_outbound": "3h15",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-18%20through%202026-09-24"
     },
     {
       "destination": "MCZ",
@@ -628,6 +660,33 @@
         {
           "checked_at": "2026-07-31T02:53:30",
           "price": 1098.0
+        }
+      ]
+    },
+    "NAT|2026-09-24|2026-09-30": {
+      "min_price": 1702.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T03:06:38",
+          "price": 1702.0
+        }
+      ]
+    },
+    "NAT|2026-09-17|2026-09-23": {
+      "min_price": 1867.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T03:06:41",
+          "price": 1867.0
+        }
+      ]
+    },
+    "NAT|2026-09-18|2026-09-24": {
+      "min_price": 1867.0,
+      "observations": [
+        {
+          "checked_at": "2026-07-31T03:06:44",
+          "price": 1867.0
         }
       ]
     }
