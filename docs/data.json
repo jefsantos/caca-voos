@@ -1,16 +1,12 @@
 {
-  "generated_at": "2026-07-30T13:27:22",
+  "generated_at": "2026-07-31T02:27:17",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 4800.0,
   "destinations": [
-    "FCO"
+    "MACEIO"
   ],
-  "checked_today": [
-    "FCO|2026-09-20|2026-09-26",
-    "FCO|2026-09-21|2026-09-27",
-    "FCO|2026-09-22|2026-09-28"
-  ],
+  "checked_today": [],
   "offers": [
     {
       "destination": "FCO",
