@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T12:44:36",
+  "generated_at": "2026-08-11T12:41:32",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
@@ -7,9 +7,9 @@
     "MCZ"
   ],
   "checked_today": [
-    "MCZ|2026-09-18|2026-09-24",
-    "MCZ|2026-09-19|2026-09-25",
-    "MCZ|2026-09-20|2026-09-26"
+    "MCZ|2026-09-21|2026-09-27",
+    "MCZ|2026-09-22|2026-09-28",
+    "MCZ|2026-09-23|2026-09-29"
   ],
   "offers": [
     {
@@ -33,17 +33,6 @@
       "stops_outbound": 0,
       "duration_outbound": "3h15",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-24%20through%202026-09-30"
-    },
-    {
-      "destination": "MCZ",
-      "departure": "2026-09-22",
-      "return_date": "2026-09-28",
-      "price": 1857.0,
-      "currency": "BRL",
-      "carrier": "Azul",
-      "stops_outbound": 1,
-      "duration_outbound": "13h25",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-22%20through%202026-09-28"
     },
     {
       "destination": "NAT",
@@ -80,6 +69,17 @@
     },
     {
       "destination": "MCZ",
+      "departure": "2026-09-22",
+      "return_date": "2026-09-28",
+      "price": 1929.0,
+      "currency": "BRL",
+      "carrier": "Azul",
+      "stops_outbound": 1,
+      "duration_outbound": "13h25",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-22%20through%202026-09-28"
+    },
+    {
+      "destination": "MCZ",
       "departure": "2026-09-20",
       "return_date": "2026-09-26",
       "price": 1929.0,
@@ -102,17 +102,6 @@
     },
     {
       "destination": "MCZ",
-      "departure": "2026-09-23",
-      "return_date": "2026-09-29",
-      "price": 1980.0,
-      "currency": "BRL",
-      "carrier": "LATAM",
-      "stops_outbound": 0,
-      "duration_outbound": "2h50",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-23%20through%202026-09-29"
-    },
-    {
-      "destination": "MCZ",
       "departure": "2026-09-17",
       "return_date": "2026-09-23",
       "price": 2038.0,
@@ -124,17 +113,6 @@
     },
     {
       "destination": "MCZ",
-      "departure": "2026-09-21",
-      "return_date": "2026-09-27",
-      "price": 2060.0,
-      "currency": "BRL",
-      "carrier": "Gol",
-      "stops_outbound": 0,
-      "duration_outbound": "2h55",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-21%20through%202026-09-27"
-    },
-    {
-      "destination": "MCZ",
       "departure": "2026-09-18",
       "return_date": "2026-09-24",
       "price": 2068.0,
@@ -143,6 +121,28 @@
       "stops_outbound": 0,
       "duration_outbound": "2h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-18%20through%202026-09-24"
+    },
+    {
+      "destination": "MCZ",
+      "departure": "2026-09-23",
+      "return_date": "2026-09-29",
+      "price": 2081.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-23%20through%202026-09-29"
+    },
+    {
+      "destination": "MCZ",
+      "departure": "2026-09-21",
+      "return_date": "2026-09-27",
+      "price": 2081.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-21%20through%202026-09-27"
     },
     {
       "destination": "FCO",
@@ -835,6 +835,10 @@
         {
           "checked_at": "2026-08-08T12:26:27",
           "price": 2060.0
+        },
+        {
+          "checked_at": "2026-08-11T12:41:21",
+          "price": 2081.0
         }
       ]
     },
@@ -860,6 +864,10 @@
         {
           "checked_at": "2026-08-08T12:26:31",
           "price": 1857.0
+        },
+        {
+          "checked_at": "2026-08-11T12:41:28",
+          "price": 1929.0
         }
       ]
     },
@@ -885,6 +893,10 @@
         {
           "checked_at": "2026-08-09T12:29:01",
           "price": 1980.0
+        },
+        {
+          "checked_at": "2026-08-11T12:41:31",
+          "price": 2081.0
         }
       ]
     },
