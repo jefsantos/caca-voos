@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-12T12:44:39",
+  "generated_at": "2026-08-12T17:54:36",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
   "destinations": [
-    "MCZ"
+    "FCO"
   ],
   "checked_today": [
-    "MCZ|2026-09-24|2026-09-30",
-    "MCZ|2026-09-17|2026-09-23",
-    "MCZ|2026-09-18|2026-09-24"
+    "FCO|2026-09-19|2026-09-25",
+    "FCO|2026-09-20|2026-09-26",
+    "FCO|2026-09-21|2026-09-27"
   ],
   "offers": [
     {
@@ -311,17 +311,6 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-20",
-      "return_date": "2026-09-26",
-      "price": 6341.0,
-      "currency": "BRL",
-      "carrier": "KLM",
-      "stops_outbound": 1,
-      "duration_outbound": "20h00",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-20%20through%202026-09-26"
-    },
-    {
-      "destination": "FCO",
       "departure": "2026-09-22",
       "return_date": "2026-09-28",
       "price": 6359.0,
@@ -355,25 +344,36 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-19",
-      "return_date": "2026-09-25",
-      "price": 6454.0,
-      "currency": "BRL",
-      "carrier": "LATAM + Lufthansa",
-      "stops_outbound": 1,
-      "duration_outbound": "18h30",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-19%20through%202026-09-25"
-    },
-    {
-      "destination": "FCO",
       "departure": "2026-09-21",
       "return_date": "2026-09-27",
-      "price": 6800.0,
+      "price": 6838.0,
       "currency": "BRL",
       "carrier": "Tap Air Portugal",
       "stops_outbound": 1,
       "duration_outbound": "15h00",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-21%20through%202026-09-27"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-19",
+      "return_date": "2026-09-25",
+      "price": 6905.0,
+      "currency": "BRL",
+      "carrier": "Tap Air Portugal",
+      "stops_outbound": 1,
+      "duration_outbound": "22h30",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-19%20through%202026-09-25"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-20",
+      "return_date": "2026-09-26",
+      "price": 7083.0,
+      "currency": "BRL",
+      "carrier": "Ethiopian",
+      "stops_outbound": 1,
+      "duration_outbound": "38h45",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-20%20through%202026-09-26"
     }
   ],
   "routes": {
@@ -591,6 +591,10 @@
         {
           "checked_at": "2026-07-29T18:36:16",
           "price": 6454.0
+        },
+        {
+          "checked_at": "2026-08-12T17:54:28",
+          "price": 6905.0
         }
       ]
     },
@@ -612,6 +616,10 @@
         {
           "checked_at": "2026-07-30T13:27:00",
           "price": 6341.0
+        },
+        {
+          "checked_at": "2026-08-12T17:54:31",
+          "price": 7083.0
         }
       ]
     },
@@ -633,6 +641,10 @@
         {
           "checked_at": "2026-07-30T13:27:07",
           "price": 6800.0
+        },
+        {
+          "checked_at": "2026-08-12T17:54:35",
+          "price": 6838.0
         }
       ]
     },
