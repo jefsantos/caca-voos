@@ -9,6 +9,6 @@
     6
   ],
   "searches_per_run": 3,
-  "price_ceiling": 100,
+  "price_ceiling": 5000,
   "currency": "BRL"
 }
