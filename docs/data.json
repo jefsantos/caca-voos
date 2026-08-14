@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13T12:45:13",
+  "generated_at": "2026-08-14T12:41:37",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 100.0,
@@ -7,9 +7,9 @@
     "FCO"
   ],
   "checked_today": [
-    "FCO|2026-09-22|2026-09-28",
-    "FCO|2026-09-23|2026-09-29",
-    "FCO|2026-09-24|2026-09-30"
+    "FCO|2026-09-17|2026-09-23",
+    "FCO|2026-09-18|2026-09-24",
+    "FCO|2026-09-19|2026-09-25"
   ],
   "offers": [
     {
@@ -300,17 +300,6 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-17",
-      "return_date": "2026-09-23",
-      "price": 5918.0,
-      "currency": "BRL",
-      "carrier": "KLM",
-      "stops_outbound": 1,
-      "duration_outbound": "16h00",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-17%20through%202026-09-23"
-    },
-    {
-      "destination": "FCO",
       "departure": "2026-09-12",
       "return_date": "2026-09-18",
       "price": 6013.0,
@@ -322,17 +311,6 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-18",
-      "return_date": "2026-09-24",
-      "price": 6382.0,
-      "currency": "BRL",
-      "carrier": "LATAM + Lufthansa",
-      "stops_outbound": 1,
-      "duration_outbound": "18h30",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-18%20through%202026-09-24"
-    },
-    {
-      "destination": "FCO",
       "departure": "2026-09-07",
       "return_date": "2026-09-13",
       "price": 6403.0,
@@ -341,6 +319,28 @@
       "stops_outbound": 1,
       "duration_outbound": "14h40",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-07%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-18",
+      "return_date": "2026-09-24",
+      "price": 6623.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "11h15",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-18%20through%202026-09-24"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-17",
+      "return_date": "2026-09-23",
+      "price": 6653.0,
+      "currency": "BRL",
+      "carrier": "Air Europa",
+      "stops_outbound": 1,
+      "duration_outbound": "20h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-17%20through%202026-09-23"
     },
     {
       "destination": "FCO",
@@ -357,11 +357,11 @@
       "destination": "FCO",
       "departure": "2026-09-19",
       "return_date": "2026-09-25",
-      "price": 6905.0,
+      "price": 6959.0,
       "currency": "BRL",
-      "carrier": "Tap Air Portugal",
+      "carrier": "Air France",
       "stops_outbound": 1,
-      "duration_outbound": "22h30",
+      "duration_outbound": "22h40",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-19%20through%202026-09-25"
     },
     {
@@ -545,6 +545,10 @@
         {
           "checked_at": "2026-07-29T18:36:03",
           "price": 5918.0
+        },
+        {
+          "checked_at": "2026-08-14T12:41:29",
+          "price": 6653.0
         }
       ]
     },
@@ -570,6 +574,10 @@
         {
           "checked_at": "2026-07-29T18:36:10",
           "price": 6382.0
+        },
+        {
+          "checked_at": "2026-08-14T12:41:33",
+          "price": 6623.0
         }
       ]
     },
@@ -599,6 +607,10 @@
         {
           "checked_at": "2026-08-12T17:54:28",
           "price": 6905.0
+        },
+        {
+          "checked_at": "2026-08-14T12:41:36",
+          "price": 6959.0
         }
       ]
     },
