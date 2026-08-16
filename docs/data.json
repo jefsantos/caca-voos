@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T12:17:49",
+  "generated_at": "2026-08-16T12:19:05",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 5000.0,
@@ -7,9 +7,9 @@
     "FCO"
   ],
   "checked_today": [
-    "FCO|2026-09-18|2026-09-24",
-    "FCO|2026-09-19|2026-09-25",
-    "FCO|2026-09-20|2026-09-26"
+    "FCO|2026-09-21|2026-09-27",
+    "FCO|2026-09-22|2026-09-28",
+    "FCO|2026-09-23|2026-09-29"
   ],
   "offers": [
     {
@@ -146,17 +146,6 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-22",
-      "return_date": "2026-09-28",
-      "price": 5162.0,
-      "currency": "BRL",
-      "carrier": "Tap Air Portugal",
-      "stops_outbound": 2,
-      "duration_outbound": "32h25",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-22%20through%202026-09-28"
-    },
-    {
-      "destination": "FCO",
       "departure": "2026-09-09",
       "return_date": "2026-09-15",
       "price": 5481.0,
@@ -289,25 +278,14 @@
     },
     {
       "destination": "FCO",
-      "departure": "2026-09-23",
-      "return_date": "2026-09-29",
-      "price": 6077.0,
+      "departure": "2026-09-22",
+      "return_date": "2026-09-28",
+      "price": 6130.0,
       "currency": "BRL",
       "carrier": "Tap Air Portugal",
-      "stops_outbound": 1,
-      "duration_outbound": "28h35",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-23%20through%202026-09-29"
-    },
-    {
-      "destination": "FCO",
-      "departure": "2026-09-21",
-      "return_date": "2026-09-27",
-      "price": 6194.0,
-      "currency": "BRL",
-      "carrier": "Tap Air Portugal",
-      "stops_outbound": 1,
-      "duration_outbound": "19h15",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-21%20through%202026-09-27"
+      "stops_outbound": 2,
+      "duration_outbound": "32h25",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-22%20through%202026-09-28"
     },
     {
       "destination": "FCO",
@@ -330,6 +308,17 @@
       "stops_outbound": 1,
       "duration_outbound": "14h40",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-07%20through%202026-09-13"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-23",
+      "return_date": "2026-09-29",
+      "price": 6451.0,
+      "currency": "BRL",
+      "carrier": "Gol + Tap Air Portugal",
+      "stops_outbound": 2,
+      "duration_outbound": "17h50",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-23%20through%202026-09-29"
     },
     {
       "destination": "FCO",
@@ -374,6 +363,17 @@
       "stops_outbound": 2,
       "duration_outbound": "17h25",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-19%20through%202026-09-25"
+    },
+    {
+      "destination": "FCO",
+      "departure": "2026-09-21",
+      "return_date": "2026-09-27",
+      "price": 6952.0,
+      "currency": "BRL",
+      "carrier": "Ethiopian",
+      "stops_outbound": 1,
+      "duration_outbound": "23h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20FCO%20on%202026-09-21%20through%202026-09-27"
     }
   ],
   "routes": {
@@ -689,6 +689,10 @@
         {
           "checked_at": "2026-08-14T13:22:59",
           "price": 6194.0
+        },
+        {
+          "checked_at": "2026-08-16T12:18:53",
+          "price": 6952.0
         }
       ]
     },
@@ -718,6 +722,10 @@
         {
           "checked_at": "2026-08-14T13:23:01",
           "price": 5162.0
+        },
+        {
+          "checked_at": "2026-08-16T12:18:56",
+          "price": 6130.0
         }
       ]
     },
@@ -743,6 +751,10 @@
         {
           "checked_at": "2026-08-14T13:28:08",
           "price": 6077.0
+        },
+        {
+          "checked_at": "2026-08-16T12:19:04",
+          "price": 6451.0
         }
       ]
     },
