@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-23T12:18:59",
+  "generated_at": "2026-08-24T11:41:32",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 5000.0,
   "destinations": [
-    "FCO"
+    "REC"
   ],
   "checked_today": [
-    "FCO|2026-09-18|2026-09-24",
-    "FCO|2026-09-19|2026-09-25",
-    "FCO|2026-09-20|2026-09-26"
+    "REC|2026-09-13|2026-09-19",
+    "REC|2026-09-14|2026-09-20",
+    "REC|2026-09-09|2026-09-15"
   ],
   "offers": [
     {
@@ -35,6 +35,17 @@
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-24%20through%202026-09-30"
     },
     {
+      "destination": "REC",
+      "departure": "2026-09-09",
+      "return_date": "2026-09-15",
+      "price": 1807.0,
+      "currency": "BRL",
+      "carrier": "Azul",
+      "stops_outbound": 0,
+      "duration_outbound": "3h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20REC%20on%202026-09-09%20through%202026-09-15"
+    },
+    {
       "destination": "NAT",
       "departure": "2026-09-17",
       "return_date": "2026-09-23",
@@ -55,6 +66,28 @@
       "stops_outbound": 0,
       "duration_outbound": "3h15",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20NAT%20on%202026-09-18%20through%202026-09-24"
+    },
+    {
+      "destination": "REC",
+      "departure": "2026-09-13",
+      "return_date": "2026-09-19",
+      "price": 1902.0,
+      "currency": "BRL",
+      "carrier": "Azul",
+      "stops_outbound": 0,
+      "duration_outbound": "3h00",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20REC%20on%202026-09-13%20through%202026-09-19"
+    },
+    {
+      "destination": "REC",
+      "departure": "2026-09-14",
+      "return_date": "2026-09-20",
+      "price": 1923.0,
+      "currency": "BRL",
+      "carrier": "Azul",
+      "stops_outbound": 0,
+      "duration_outbound": "3h05",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20REC%20on%202026-09-14%20through%202026-09-20"
     },
     {
       "destination": "MCZ",
@@ -1127,6 +1160,33 @@
         {
           "checked_at": "2026-08-12T12:44:35",
           "price": 2083.0
+        }
+      ]
+    },
+    "REC|2026-09-13|2026-09-19": {
+      "min_price": 1902.0,
+      "observations": [
+        {
+          "checked_at": "2026-08-24T11:41:23",
+          "price": 1902.0
+        }
+      ]
+    },
+    "REC|2026-09-14|2026-09-20": {
+      "min_price": 1923.0,
+      "observations": [
+        {
+          "checked_at": "2026-08-24T11:41:28",
+          "price": 1923.0
+        }
+      ]
+    },
+    "REC|2026-09-09|2026-09-15": {
+      "min_price": 1807.0,
+      "observations": [
+        {
+          "checked_at": "2026-08-24T11:41:31",
+          "price": 1807.0
         }
       ]
     }
