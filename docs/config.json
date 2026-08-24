@@ -1,10 +1,10 @@
 {
   "origin": "GRU",
   "destinations": [
-    "FCO"
+    "REC"
   ],
-  "departure_start": "2026-09-17",
-  "departure_end": "2026-09-24",
+  "departure_start": "2026-09-09",
+  "departure_end": "2026-09-14",
   "stay_days": [
     6
   ],
