@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T12:27:31",
+  "generated_at": "2026-08-26T12:30:32",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
@@ -7,7 +7,7 @@
     "AJU"
   ],
   "checked_today": [
-    "AJU|2026-09-11|2026-09-17"
+    "AJU|2026-09-12|2026-09-18"
   ],
   "offers": [
     {
@@ -262,6 +262,17 @@
       "stops_outbound": 1,
       "duration_outbound": "6h35",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-09%20through%202026-09-15"
+    },
+    {
+      "destination": "AJU",
+      "departure": "2026-09-12",
+      "return_date": "2026-09-18",
+      "price": 2356.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h35",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-12%20through%202026-09-18"
     },
     {
       "destination": "FCO",
@@ -1345,6 +1356,15 @@
         {
           "checked_at": "2026-08-25T12:27:30",
           "price": 2284.0
+        }
+      ]
+    },
+    "AJU|2026-09-12|2026-09-18": {
+      "min_price": 2356.0,
+      "observations": [
+        {
+          "checked_at": "2026-08-26T12:30:31",
+          "price": 2356.0
         }
       ]
     }
