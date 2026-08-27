@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T12:30:32",
+  "generated_at": "2026-08-27T21:26:27",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
@@ -7,7 +7,7 @@
     "AJU"
   ],
   "checked_today": [
-    "AJU|2026-09-12|2026-09-18"
+    "AJU|2026-09-13|2026-09-19"
   ],
   "offers": [
     {
@@ -143,6 +143,17 @@
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-20%20through%202026-09-26"
     },
     {
+      "destination": "AJU",
+      "departure": "2026-09-13",
+      "return_date": "2026-09-19",
+      "price": 1932.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h35",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-13%20through%202026-09-19"
+    },
+    {
       "destination": "MCZ",
       "departure": "2026-09-19",
       "return_date": "2026-09-25",
@@ -218,17 +229,6 @@
       "stops_outbound": 0,
       "duration_outbound": "2h50",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-17%20through%202026-09-23"
-    },
-    {
-      "destination": "AJU",
-      "departure": "2026-09-13",
-      "return_date": "2026-09-19",
-      "price": 2192.0,
-      "currency": "BRL",
-      "carrier": "LATAM",
-      "stops_outbound": 0,
-      "duration_outbound": "2h35",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-13%20through%202026-09-19"
     },
     {
       "destination": "AJU",
@@ -1315,11 +1315,15 @@
       ]
     },
     "AJU|2026-09-13|2026-09-19": {
-      "min_price": 2192.0,
+      "min_price": 1932.0,
       "observations": [
         {
           "checked_at": "2026-08-25T04:09:32",
           "price": 2192.0
+        },
+        {
+          "checked_at": "2026-08-27T21:26:26",
+          "price": 1932.0
         }
       ]
     },
