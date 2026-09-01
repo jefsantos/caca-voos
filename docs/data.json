@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T18:26:11",
+  "generated_at": "2026-09-01T15:45:39",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
@@ -7,7 +7,7 @@
     "AJU"
   ],
   "checked_today": [
-    "AJU|2026-09-11|2026-09-17"
+    "AJU|2026-09-12|2026-09-18"
   ],
   "offers": [
     {
@@ -267,7 +267,7 @@
       "destination": "AJU",
       "departure": "2026-09-12",
       "return_date": "2026-09-18",
-      "price": 2356.0,
+      "price": 2674.0,
       "currency": "BRL",
       "carrier": "LATAM",
       "stops_outbound": 0,
@@ -1385,6 +1385,10 @@
         {
           "checked_at": "2026-08-26T12:30:31",
           "price": 2356.0
+        },
+        {
+          "checked_at": "2026-09-01T15:45:38",
+          "price": 2674.0
         }
       ]
     }
