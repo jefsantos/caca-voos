@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T15:28:30",
+  "generated_at": "2026-09-04T15:26:23",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
@@ -7,7 +7,7 @@
     "AJU"
   ],
   "checked_today": [
-    "AJU|2026-09-14|2026-09-20"
+    "AJU|2026-09-09|2026-09-15"
   ],
   "offers": [
     {
@@ -53,17 +53,6 @@
       "stops_outbound": 0,
       "duration_outbound": "3h05",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20REC%20on%202026-09-12%20through%202026-09-18"
-    },
-    {
-      "destination": "AJU",
-      "departure": "2026-09-09",
-      "return_date": "2026-09-15",
-      "price": 1724.0,
-      "currency": "BRL",
-      "carrier": "LATAM",
-      "stops_outbound": 0,
-      "duration_outbound": "2h35",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-09%20through%202026-09-15"
     },
     {
       "destination": "REC",
@@ -262,6 +251,17 @@
       "stops_outbound": 0,
       "duration_outbound": "2h35",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-12%20through%202026-09-18"
+    },
+    {
+      "destination": "AJU",
+      "departure": "2026-09-09",
+      "return_date": "2026-09-15",
+      "price": 3176.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h35",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-09%20through%202026-09-15"
     },
     {
       "destination": "AJU",
@@ -1358,6 +1358,10 @@
         {
           "checked_at": "2026-08-29T15:56:11",
           "price": 1724.0
+        },
+        {
+          "checked_at": "2026-09-04T15:26:22",
+          "price": 3176.0
         }
       ]
     },
