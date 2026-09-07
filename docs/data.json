@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T14:37:14",
+  "generated_at": "2026-09-07T16:51:03",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
@@ -7,7 +7,7 @@
     "AJU"
   ],
   "checked_today": [
-    "AJU|2026-09-11|2026-09-17"
+    "AJU|2026-09-12|2026-09-18"
   ],
   "offers": [
     {
@@ -154,6 +154,17 @@
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20MCZ%20on%202026-09-19%20through%202026-09-25"
     },
     {
+      "destination": "AJU",
+      "departure": "2026-09-12",
+      "return_date": "2026-09-18",
+      "price": 1960.0,
+      "currency": "BRL",
+      "carrier": "LATAM",
+      "stops_outbound": 0,
+      "duration_outbound": "2h35",
+      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-12%20through%202026-09-18"
+    },
+    {
       "destination": "MCZ",
       "departure": "2026-09-24",
       "return_date": "2026-09-30",
@@ -240,17 +251,6 @@
       "stops_outbound": 1,
       "duration_outbound": "12h05",
       "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-10%20through%202026-09-16"
-    },
-    {
-      "destination": "AJU",
-      "departure": "2026-09-12",
-      "return_date": "2026-09-18",
-      "price": 2674.0,
-      "currency": "BRL",
-      "carrier": "LATAM",
-      "stops_outbound": 0,
-      "duration_outbound": "2h35",
-      "google_flights_url": "https://www.google.com/travel/flights?q=Flights%20from%20GRU%20to%20AJU%20on%202026-09-12%20through%202026-09-18"
     },
     {
       "destination": "AJU",
@@ -1400,7 +1400,7 @@
       ]
     },
     "AJU|2026-09-12|2026-09-18": {
-      "min_price": 2356.0,
+      "min_price": 1960.0,
       "observations": [
         {
           "checked_at": "2026-08-26T12:30:31",
@@ -1409,6 +1409,10 @@
         {
           "checked_at": "2026-09-01T15:45:38",
           "price": 2674.0
+        },
+        {
+          "checked_at": "2026-09-07T16:51:02",
+          "price": 1960.0
         }
       ]
     }
