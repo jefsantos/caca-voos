@@ -1,14 +1,12 @@
 {
-  "generated_at": "2026-09-09T15:33:31",
+  "generated_at": "2026-09-10T15:29:23",
   "origin": "GRU",
   "currency": "BRL",
   "price_ceiling": 1200.0,
   "destinations": [
     "AJU"
   ],
-  "checked_today": [
-    "AJU|2026-09-14|2026-09-20"
-  ],
+  "checked_today": [],
   "offers": [
     {
       "destination": "JPA",
